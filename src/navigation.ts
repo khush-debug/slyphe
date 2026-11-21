@@ -155,19 +155,40 @@ export class NavigationController {
     const reveals = document.querySelectorAll<HTMLElement>('.reveal-up');
     if (!reveals.length) return;
 
+    // Signal that the intersection observer system is active
+    document.documentElement.classList.add('js-observer-ready');
+
+    const revealEl = (el: Element) => {
+      el.classList.add('revealed');
+      el.classList.add('is-visible');
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      reveals.forEach(revealEl);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
+            revealEl(entry.target);
             observer.unobserve(entry.target);
           }
         });
       },
-      { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.08 }
+      { root: null, rootMargin: '120px 0px 40px 0px', threshold: 0.02 }
     );
 
-    reveals.forEach((el) => observer.observe(el));
+    reveals.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      // If element is already in or near viewport, reveal immediately without blank flash
+      if (rect.top <= window.innerHeight + 80) {
+        revealEl(el);
+      } else {
+        observer.observe(el);
+      }
+    });
   }
 
   private initBackToTop(): void {
