@@ -1,0 +1,77 @@
+/**
+ * CELESTIA — Wardrobe Specification & Material Inspector
+ * Typed controller for tactile fabric swatches and sensory specification switches.
+ */
+
+import { SoundEngine } from './sound.js';
+
+export interface SensoryDetail {
+  label: string;
+  spec: string;
+  btnText: string;
+}
+
+export class WardrobeController {
+  private soundEngine: SoundEngine | null = null;
+  private toggleBtn: HTMLElement | null = null;
+  private labelEl: HTMLElement | null = null;
+  private specEl: HTMLElement | null = null;
+  private isOlfactory: boolean = false;
+
+  private static readonly SPECS: Record<'fabric' | 'olfactory', SensoryDetail> = {
+    fabric: {
+      label: 'SIGNATURE FABRIC SPECIFICATION',
+      spec: '320gsm Italian milled virgin wool blended with 15% mulberry silk. Fluid, unstructured silhouette cut to drape naturally in stride, with soft canvas construction and hand-finished horn buttons.',
+      btnText: 'Switch to Olfactory Spec'
+    },
+    olfactory: {
+      label: 'HAUTE PARFUMERIE SPECIFICATION',
+      spec: '24% Extrait concentration. Sunlit Calabrian bergamot, blooming white peony petals, and smoked Mysore sandalwood. Formulated to interact with personal body heat for an intimate, 14-hour skin aura.',
+      btnText: 'Switch to Fabric Spec'
+    }
+  };
+
+  constructor(soundEngine?: SoundEngine) {
+    this.soundEngine = soundEngine || null;
+    this.toggleBtn = document.getElementById('sensoryToggleBtn');
+    this.labelEl = document.getElementById('sensoryLabel');
+    this.specEl = document.getElementById('sensorySpec');
+
+    if (this.toggleBtn && this.labelEl && this.specEl) {
+      this.bindEvents();
+    }
+  }
+
+  private bindEvents(): void {
+    this.toggleBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.isOlfactory = !this.isOlfactory;
+      this.updateView();
+
+      if (this.soundEngine) {
+        this.soundEngine.playClick(1750);
+      }
+    });
+  }
+
+  private updateView(): void {
+    const active = this.isOlfactory ? WardrobeController.SPECS.olfactory : WardrobeController.SPECS.fabric;
+
+    if (this.labelEl && this.specEl && this.toggleBtn) {
+      this.labelEl.style.opacity = '0';
+      this.specEl.style.opacity = '0';
+
+      setTimeout(() => {
+        if (this.labelEl && this.specEl && this.toggleBtn) {
+          this.labelEl.textContent = active.label;
+          this.specEl.textContent = active.spec;
+          const span = this.toggleBtn.querySelector('span');
+          if (span) span.textContent = active.btnText;
+
+          this.labelEl.style.opacity = '1';
+          this.specEl.style.opacity = '1';
+        }
+      }, 180);
+    }
+  }
+}

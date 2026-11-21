@@ -1,14 +1,21 @@
 {
   "name": "slyphe",
-  "version": "1.0.0",
-  "description": "CELESTIA — Haute Couture & Haute Parfumerie in Motion",
+  "version": "1.2.0",
+  "type": "module",
+  "description": "CELESTIA — Haute Couture & Haute Parfumerie in Motion with TypeScript Architecture",
   "scripts": {
-    "build": "mkdir -p dist && cp -r *.html style.css app.js silk.js sound.js booking.js public dist",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
     "start": "python3 -m http.server 3000"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
   },
   "keywords": [
     "celestia",
     "slyphe",
+    "typescript",
+    "css-design-tokens",
     "fashion",
     "fragrance",
     "motion"

@@ -1,0 +1,88 @@
+/**
+ * CELESTIA — Interactive Olfactory Pyramid & Accords Explorer
+ * Typed controller for exploring fragrance tiers: Top, Heart, and Base notes.
+ */
+
+import { SoundEngine } from './sound.js';
+import { OlfactoryNoteData, OlfactoryTier } from './types.js';
+
+export class OlfactoryController {
+          soundEngine                     = null;
+          container                     = null;
+          detailText                     = null;
+
+         static          NOTES                                           = {
+    top: {
+      tier: 'top',
+      title: 'Top Note · First Aura',
+      subtitle: 'Sunlit Bergamot & Morning Air',
+      notes: ['Calabrian Bergamot', 'Morning Air Accord', 'Crushed Petitgrain', 'Neroli Mist'],
+      accord: 'Crisp Citrus / Ethereal Ozone',
+      concentrationPct: 22,
+      description: 'First Impression: Bright, buoyant, awakening the senses with the crispness of dawn light through sheer silk curtains. Lingers for the first 20 minutes.'
+    },
+    heart: {
+      tier: 'heart',
+      title: 'Heart Note · The Silhouette',
+      subtitle: 'White Peony & Silk Chiffon',
+      notes: ['Dewy White Peony', 'Silk Chiffon Accord', 'French Orris Butter', 'Freesia'],
+      accord: 'Tactile Floral / Clean Textile',
+      concentrationPct: 48,
+      description: 'The Identity: A blooming, velvety softness reminiscent of freshly ironed silk garments against warm skin. Blossoms between 30 minutes and 4 hours.'
+    },
+    base: {
+      tier: 'base',
+      title: 'Base Note · The Resonance',
+      subtitle: 'Smoked Sandalwood & Cashmere Musk',
+      notes: ['Smoked Mysore Sandalwood', 'Cashmere Musk', 'White Ambergris', 'Cedarwood'],
+      accord: 'Warm Wood / Second-Skin Mineral',
+      concentrationPct: 30,
+      description: 'The Memory: Deep, comforting, tactile resonance that anchors to your natural skin chemistry for up to 14 hours. The quiet mark that stays behind.'
+    }
+  };
+
+  constructor(soundEngine              ) {
+    this.soundEngine = soundEngine || null;
+    this.container = document.querySelector('.olfactory-pyramid');
+    this.detailText = document.getElementById('pyramidActiveDetail');
+
+    if (this.container) {
+      this.bindEvents();
+    }
+  }
+
+          bindEvents()       {
+    const levels = this.container?.querySelectorAll             ('.pyramid-level');
+    if (!levels) return;
+
+    levels.forEach((level) => {
+      level.addEventListener('click', () => {
+        const tier = level.getAttribute('data-tier')                 ;
+        if (!tier || !OlfactoryController.NOTES[tier]) return;
+
+        levels.forEach((l) => l.classList.remove('active'));
+        level.classList.add('active');
+
+        this.updateDetail(tier);
+
+        if (this.soundEngine) {
+          const freqs                                = { top: 2200, heart: 1600, base: 900 };
+          this.soundEngine.playClick(freqs[tier] || 1500);
+        }
+      });
+    });
+  }
+
+          updateDetail(tier               )       {
+    const data = OlfactoryController.NOTES[tier];
+    if (!this.detailText || !data) return;
+
+    this.detailText.style.opacity = '0';
+    setTimeout(() => {
+      if (this.detailText) {
+        this.detailText.innerHTML = `<strong>${data.title} (${data.accord}):</strong> ${data.description}`;
+        this.detailText.style.opacity = '1';
+      }
+    }, 180);
+  }
+}

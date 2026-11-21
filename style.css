@@ -21,6 +21,33 @@
   --border-dark: rgba(255, 255, 255, 0.1);
   --border-active: #1A1A18;
 
+  /* ==========================================================================
+     LOOKS & SIZING DESIGN TOKENS (Button Colors, Dimensions & Metrics)
+     Controls the visual weight, scale, padding, and hue of buttons via CSS.
+     ========================================================================== */
+  --btn-primary-bg: #2853C3;              /* Background color (Celestia Cobalt Blue) */
+  --btn-primary-hover-bg: #1E44AA;        /* Hover state background */
+  --btn-primary-color: #FFFFFF;           /* Foreground text/icon color */
+  --btn-primary-border: transparent;      /* Border color */
+  --btn-primary-shadow: 0 8px 24px rgba(40, 83, 195, 0.22);
+  --btn-primary-shadow-hover: 0 14px 36px rgba(40, 83, 195, 0.32);
+
+  /* Button Dimensions & Geometry */
+  --btn-height: 48px;                     /* Baseline vertical height */
+  --btn-padding-y: 0.95rem;               /* Vertical padding */
+  --btn-padding-x: 2.2rem;                /* Horizontal padding */
+  --btn-font-size: 0.8rem;                /* Typography size */
+  --btn-font-weight: 500;                 /* Typography weight */
+  --btn-letter-spacing: 0.18em;           /* Letter tracking */
+  --btn-radius: 1px;                      /* Architectural corner radius */
+  --btn-border-width: 1px;
+
+  /* Pill Button Look Tokens */
+  --btn-pill-bg: #FFFFFF;
+  --btn-pill-hover-bg: #F8F9FD;
+  --btn-pill-color: var(--btn-primary-bg);
+  --btn-pill-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
   --font-serif: 'Cormorant Garamond', Didot, 'Bodoni MT', 'Times New Roman', serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
@@ -431,24 +458,52 @@ body:hover .custom-cursor { opacity: 1; }
   animation: fadeIn 1.2s var(--ease-out-expo) 0.6s forwards;
 }
 
-/* Primary Blue Button matching Screenshots */
+/* Explicit Button Size Modifier Classes: CSS control over proportions */
+.btn--sm {
+  --btn-height: 38px;
+  --btn-padding-y: 0.55rem;
+  --btn-padding-x: 1.4rem;
+  --btn-font-size: 0.72rem;
+  --btn-letter-spacing: 0.14em;
+}
+
+.btn--md {
+  --btn-height: 48px;
+  --btn-padding-y: 0.95rem;
+  --btn-padding-x: 2.2rem;
+  --btn-font-size: 0.8rem;
+  --btn-letter-spacing: 0.18em;
+}
+
+.btn--lg {
+  --btn-height: 58px;
+  --btn-padding-y: 1.25rem;
+  --btn-padding-x: 2.8rem;
+  --btn-font-size: 0.88rem;
+  --btn-letter-spacing: 0.22em;
+}
+
+/* Primary Button with dynamic CSS look variables */
 .btn-primary-blue {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  background-color: var(--bg-royal);
-  color: #FFFFFF;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  min-height: var(--btn-height);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
   text-transform: uppercase;
-  padding: 1.15rem 2.4rem;
-  border-radius: 1px;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border: var(--btn-border-width) solid var(--btn-primary-border);
+  border-radius: var(--btn-radius);
   position: relative;
   overflow: hidden;
-  transition: transform 0.4s var(--ease-out-expo), background-color 0.3s ease, box-shadow 0.4s ease;
-  box-shadow: 0 8px 24px rgba(40, 83, 195, 0.22);
+  transition: transform 0.4s var(--ease-out-expo), background-color 0.3s ease, box-shadow 0.4s ease, border-radius 0.3s ease;
+  box-shadow: var(--btn-primary-shadow);
+  cursor: pointer;
 }
 
 .btn-primary-blue::before {
@@ -458,7 +513,7 @@ body:hover .custom-cursor { opacity: 1; }
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--bg-royal-hover);
+  background: var(--btn-primary-hover-bg);
   transform: translateY(100%);
   transition: transform 0.4s var(--ease-out-expo);
   z-index: 1;
@@ -807,16 +862,18 @@ body:hover .custom-cursor { opacity: 1; }
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  background-color: #FFFFFF;
-  color: var(--bg-royal);
-  font-size: 0.8rem;
+  min-height: var(--btn-height);
+  background-color: var(--btn-pill-bg);
+  color: var(--btn-primary-bg);
+  font-size: var(--btn-font-size);
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--btn-letter-spacing);
   text-transform: uppercase;
-  padding: 1.15rem 2.6rem;
-  border-radius: 1px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: var(--btn-padding-y) calc(var(--btn-padding-x) * 1.15);
+  border-radius: var(--btn-radius);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
+  box-shadow: var(--btn-pill-shadow);
+  cursor: pointer;
 }
 
 .btn-white-pill:hover {
@@ -1411,3 +1468,257 @@ body:hover .custom-cursor { opacity: 1; }
     align-items: flex-start;
   }
 }
+
+/* ==========================================================================
+   INTERACTIVE LOOKS & CSS TOKENS INSPECTOR UI
+   Visualizes how CSS custom properties control button colors and sizing.
+   ========================================================================== */
+.theme-inspector-root {
+  position: relative;
+  z-index: 900;
+}
+
+.theme-inspector-trigger {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(20, 21, 24, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.65rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  transition: all 0.3s var(--ease-out-expo);
+  cursor: pointer;
+  z-index: 950;
+}
+
+.theme-inspector-trigger:hover,
+.theme-inspector-trigger.active {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(40, 83, 195, 0.3);
+}
+
+.theme-inspector-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  width: 380px;
+  max-width: calc(100vw - 48px);
+  background: #141518;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px) scale(0.97);
+  transition: all 0.35s var(--ease-out-expo);
+  z-index: 940;
+  overflow: hidden;
+}
+
+.theme-inspector-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.theme-panel-header {
+  padding: 1.2rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.theme-panel-tag {
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8C8F99;
+  margin-bottom: 0.2rem;
+}
+
+.theme-panel-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+.theme-panel-close {
+  background: none;
+  border: none;
+  color: #8C8F99;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  transition: color 0.2s ease;
+}
+
+.theme-panel-close:hover {
+  color: #FFFFFF;
+}
+
+.theme-panel-body {
+  padding: 1.4rem;
+  max-height: calc(85vh - 120px);
+  overflow-y: auto;
+}
+
+.theme-panel-intro {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #A0A3AB;
+  margin-bottom: 1.4rem;
+}
+
+.theme-control-group {
+  margin-bottom: 1.5rem;
+}
+
+.theme-control-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 0.7rem;
+}
+
+.theme-control-label code {
+  font-family: monospace;
+  font-size: 0.68rem;
+  color: #8C8F99;
+  text-transform: none;
+}
+
+.theme-palette-swatches {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.theme-color-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  color: #D1D3DA;
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-color-pill .color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.theme-color-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+.theme-color-pill.active {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+.theme-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.theme-chip {
+  padding: 0.5rem 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  color: #D1D3DA;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-chip:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.theme-chip.active {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: #141518;
+  font-weight: 500;
+}
+
+.theme-code-block {
+  margin-top: 1.6rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  padding: 0.9rem;
+}
+
+.theme-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8C8F99;
+  margin-bottom: 0.6rem;
+}
+
+.theme-copy-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #FFFFFF;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.theme-copy-btn:hover {
+  background: var(--btn-primary-bg);
+}
+
+.theme-code-block pre {
+  margin: 0;
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: #98C379;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
