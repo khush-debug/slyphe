@@ -9,8 +9,8 @@
   --bg-secondary: #EFEFE9;
   --bg-card: #FFFFFF;
   --bg-dark: #121316;
-  --bg-royal: #2853C3;
-  --bg-royal-hover: #1E44AA;
+  --bg-royal: #11100F;
+  --bg-royal-hover: #262422;
   
   --text-primary: #1A1A18;
   --text-muted: #6B6C67;
@@ -25,12 +25,12 @@
      LOOKS & SIZING DESIGN TOKENS (Button Colors, Dimensions & Metrics)
      Controls the visual weight, scale, padding, and hue of buttons via CSS.
      ========================================================================== */
-  --btn-primary-bg: #2853C3;              /* Background color (Celestia Cobalt Blue) */
-  --btn-primary-hover-bg: #1E44AA;        /* Hover state background */
+  --btn-primary-bg: #11100F;              /* Obsidian Noir Atelier (Arcadia Row Aesthetic) */
+  --btn-primary-hover-bg: #262422;        /* Subtle Obsidian Lift */
   --btn-primary-color: #FFFFFF;           /* Foreground text/icon color */
-  --btn-primary-border: transparent;      /* Border color */
-  --btn-primary-shadow: 0 8px 24px rgba(40, 83, 195, 0.22);
-  --btn-primary-shadow-hover: 0 14px 36px rgba(40, 83, 195, 0.32);
+  --btn-primary-border: #11100F;          /* Razor Sharp Border */
+  --btn-primary-shadow: 0 4px 18px rgba(17, 16, 15, 0.12);
+  --btn-primary-shadow-hover: 0 8px 24px rgba(17, 16, 15, 0.2);
 
   /* Button Dimensions & Geometry */
   --btn-height: 48px;                     /* Baseline vertical height */
@@ -437,8 +437,9 @@ body:hover .custom-cursor { opacity: 1; }
   --btn-letter-spacing: 0.22em;
 }
 
-/* Primary Button with dynamic CSS look variables */
-.btn-primary-blue {
+/* Primary Atelier Button (Obsidian Minimalist Luxury) */
+.btn-primary-blue,
+.btn-atelier-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -455,12 +456,13 @@ body:hover .custom-cursor { opacity: 1; }
   border-radius: var(--btn-radius);
   position: relative;
   overflow: hidden;
-  transition: transform 0.4s var(--ease-out-expo), background-color 0.3s ease, box-shadow 0.4s ease, border-radius 0.3s ease;
+  transition: transform 0.35s ease, background-color 0.3s ease, box-shadow 0.35s ease;
   box-shadow: var(--btn-primary-shadow);
   cursor: pointer;
 }
 
-.btn-primary-blue::before {
+.btn-primary-blue::before,
+.btn-atelier-primary::before {
   content: '';
   position: absolute;
   top: 0;
@@ -469,26 +471,30 @@ body:hover .custom-cursor { opacity: 1; }
   height: 100%;
   background: var(--btn-primary-hover-bg);
   transform: translateY(100%);
-  transition: transform 0.4s var(--ease-out-expo);
+  transition: transform 0.35s ease;
   z-index: 1;
 }
 
-.btn-primary-blue span, .btn-primary-blue svg {
+.btn-primary-blue span, .btn-primary-blue svg,
+.btn-atelier-primary span, .btn-atelier-primary svg {
   position: relative;
   z-index: 2;
   transition: transform 0.3s ease;
 }
 
-.btn-primary-blue:hover {
+.btn-primary-blue:hover,
+.btn-atelier-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(40, 83, 195, 0.32);
+  box-shadow: var(--btn-primary-shadow-hover);
 }
 
-.btn-primary-blue:hover::before {
+.btn-primary-blue:hover::before,
+.btn-atelier-primary:hover::before {
   transform: translateY(0);
 }
 
-.btn-primary-blue:hover svg {
+.btn-primary-blue:hover svg,
+.btn-atelier-primary:hover svg {
   transform: translateX(4px);
 }
 
@@ -773,27 +779,32 @@ body:hover .custom-cursor { opacity: 1; }
   transform: scale(1.02);
 }
 
-/* ----------------- Section: Royal Blue Conversation Band ----------------- */
-.royal-conversation-section {
-  background-color: var(--bg-royal);
-  color: #FFFFFF;
-  padding: 4.8rem 0;
+/* ----------------- Section: Nocturne Atelier Salon (Arcadia Row Editorial) ----------------- */
+.royal-conversation-section,
+.nocturne-conversation-section {
+  background-color: #11100F;
+  color: #FAF8F5;
+  padding: 5.5rem 0;
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.royal-conversation-section::before {
+.royal-conversation-section::before,
+.nocturne-conversation-section::before {
   content: '';
   position: absolute;
   top: -50%;
   right: -20%;
   width: 800px;
   height: 800px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 248, 240, 0.06) 0%, transparent 68%);
   pointer-events: none;
 }
 
-.royal-content {
+.royal-content,
+.nocturne-content {
   position: relative;
   z-index: 2;
   display: flex;
@@ -802,14 +813,15 @@ body:hover .custom-cursor { opacity: 1; }
   max-width: 980px;
 }
 
-.royal-heading {
+.royal-heading,
+.nocturne-heading {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5.2vw, 4.8rem);
-  font-weight: 400;
-  line-height: 1.08;
-  color: #FFFFFF;
-  margin-bottom: 2.8rem;
-  letter-spacing: -0.015em;
+  font-size: clamp(2.5rem, 5.2vw, 4.4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #FAF8F5;
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.02em;
 }
 
 .btn-white-pill {
@@ -817,21 +829,26 @@ body:hover .custom-cursor { opacity: 1; }
   align-items: center;
   gap: 0.8rem;
   min-height: var(--btn-height);
-  background-color: var(--btn-pill-bg);
-  color: var(--btn-primary-bg);
+  background-color: #FAF8F5;
+  color: #11100F;
   font-size: var(--btn-font-size);
   font-weight: 600;
   letter-spacing: var(--btn-letter-spacing);
   text-transform: uppercase;
   padding: var(--btn-padding-y) calc(var(--btn-padding-x) * 1.15);
+  border: 1px solid #FAF8F5;
   border-radius: var(--btn-radius);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
-  box-shadow: var(--btn-pill-shadow);
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
   cursor: pointer;
 }
 
 .btn-white-pill:hover {
   transform: translateY(-2px);
+  background-color: transparent;
+  color: #FAF8F5;
+  border-color: #FAF8F5;
+}
   background-color: #F8F9FD;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
 }
@@ -1366,23 +1383,190 @@ body:hover .custom-cursor { opacity: 1; }
 }
 
 /* ----------------- Kinetic Scroll Trigger Animations (Bulletproof Progressive Enhancement) ----------------- */
-.reveal-up {
-  opacity: 1; /* Fallback default: Content is NEVER invisible or empty */
-  transform: translateY(0);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-/* Hide unrevealed elements only once JavaScript observer is actively running */
-.js-observer-ready .reveal-up:not(.revealed):not(.is-visible) {
-  opacity: 0;
-  transform: translateY(28px);
-}
-
+/* Content is GUARANTEED to be 100% visible at all times - zero blank screens or empty voids */
+.reveal-up,
+.js-observer-ready .reveal-up,
+.js-observer-ready .reveal-up:not(.revealed):not(.is-visible),
 .reveal-up.revealed,
 .reveal-up.is-visible {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* ==========================================================================
+   ARCADIA ROW INSPIRED MINIMALIST PRODUCT GRID & CARDS
+   ========================================================================== */
+.arcadia-section {
+  padding: 5.5rem 0;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
+}
+
+.arcadia-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.8rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1.2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.arcadia-section-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.arcadia-section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.arcadia-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem;
+}
+
+.arcadia-product-card {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 1px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.arcadia-product-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(17, 16, 15, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+}
+
+.arcadia-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #F4F2EE;
+  overflow: hidden;
+}
+
+.arcadia-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out-expo);
+  image-rendering: high-quality;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+}
+
+.arcadia-product-card:hover .arcadia-card-media img {
+  transform: scale(1.04);
+}
+
+.arcadia-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  color: #11100F;
+  padding: 4px 9px;
+  border-radius: 1px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.arcadia-card-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.arcadia-card-category {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.arcadia-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.arcadia-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 1.2rem;
+  flex: 1;
+}
+
+.arcadia-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-light);
+  margin-top: auto;
+}
+
+.arcadia-card-price {
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.arcadia-card-action {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #11100F;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s ease;
+}
+
+.arcadia-product-card:hover .arcadia-card-action {
+  gap: 7px;
+}
+
+@media (max-width: 1024px) {
+  .arcadia-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .arcadia-grid-4 {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ----------------- Responsive Breakpoints ----------------- */

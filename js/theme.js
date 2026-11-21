@@ -3,23 +3,23 @@
  * Controls how CSS styles the appearance, dimensions, and colors of interactive elements.
  */
 export class ThemeController {
-    currentPalette = 'celestia-blue';
+    currentPalette = 'obsidian-black';
     currentSize = 'md';
     currentRadius = 'sharp';
     static COLOR_PALETTES = {
+        'obsidian-black': {
+            name: 'obsidian-black',
+            label: 'Obsidian Noir Atelier',
+            bgRoyal: '#11100F',
+            bgRoyalHover: '#262422',
+            accentShadow: 'rgba(17, 16, 15, 0.2)'
+        },
         'celestia-blue': {
             name: 'celestia-blue',
             label: 'Celestia Cobalt Blue',
             bgRoyal: '#2853C3',
             bgRoyalHover: '#1E44AA',
             accentShadow: 'rgba(40, 83, 195, 0.28)'
-        },
-        'obsidian-black': {
-            name: 'obsidian-black',
-            label: 'Obsidian Tailored Black',
-            bgRoyal: '#141518',
-            bgRoyalHover: '#2A2C32',
-            accentShadow: 'rgba(20, 21, 24, 0.3)'
         },
         'mineral-slate': {
             name: 'mineral-slate',
