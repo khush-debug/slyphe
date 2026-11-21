@@ -31,15 +31,20 @@ export class WardrobeController {
     }
   };
 
+          static          SWATCHES                         = {
+    'wool-silk': '100% Biella milled virgin wool woven with 15% mulberry silk. Breathable all-season weight (320gsm). Hand-stitched horn buttons, cupro sleeve lining, and double-pleated relaxed trousers.',
+    'silk-crepe': '100% Mulberry silk crepe de chine (210gsm). Fluid liquid handfeel, matte luster, washed softly in Lake Como waters for an unlined, effortless drape that floats around the body.',
+    'flannel': 'Finely carded virgin wool melange twill (360gsm). Brushed for subtle tactile warmth with structural memory that resists creasing during long travels.'
+  };
+
   constructor(soundEngine              ) {
     this.soundEngine = soundEngine || null;
     this.toggleBtn = document.getElementById('sensoryToggleBtn');
     this.labelEl = document.getElementById('sensoryLabel');
     this.specEl = document.getElementById('sensorySpec');
 
-    if (this.toggleBtn && this.labelEl && this.specEl) {
-      this.bindEvents();
-    }
+    this.bindEvents();
+    this.bindSwatchEvents();
   }
 
           bindEvents()       {
@@ -51,6 +56,40 @@ export class WardrobeController {
       if (this.soundEngine) {
         this.soundEngine.playClick(1750);
       }
+    });
+  }
+
+          bindSwatchEvents()       {
+    const swatches = document.querySelectorAll                   ('.swatch-btn[data-swatch]');
+    const specDetail = document.getElementById('garmentSpecDetail');
+
+    swatches.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-swatch');
+        if (!key || !WardrobeController.SWATCHES[key]) return;
+
+        swatches.forEach((b) => {
+          b.classList.remove('active');
+          b.style.borderColor = 'var(--border-light)';
+          b.style.background = 'rgba(255,255,255,0.6)';
+        });
+
+        btn.classList.add('active');
+        btn.style.borderColor = 'var(--border-active)';
+        btn.style.background = '#FFFFFF';
+
+        if (specDetail) {
+          specDetail.style.opacity = '0';
+          setTimeout(() => {
+            specDetail.textContent = WardrobeController.SWATCHES[key];
+            specDetail.style.opacity = '1';
+          }, 150);
+        }
+
+        if (this.soundEngine) {
+          this.soundEngine.playClick(2100);
+        }
+      });
     });
   }
 
