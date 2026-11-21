@@ -20,12 +20,12 @@
     <!-- Global Navigation Header -->
     <header class="header">
       <div class="container nav-container">
-        <a href="#" class="brand-logo" aria-label="Celestia Home">CELESTIA</a>
+        <a href="index.html" class="brand-logo" aria-label="Celestia Home">CELESTIA</a>
 
         <nav class="nav-center" aria-label="Main Navigation">
-          <a href="#clothing" class="nav-link">Clothing</a>
-          <a href="#fragrance" class="nav-link">Fragrance</a>
-          <a href="#journal" class="nav-link">Journal</a>
+          <a href="clothing.html" class="nav-link">Clothing</a>
+          <a href="fragrance.html" class="nav-link">Fragrance</a>
+          <a href="journal.html" class="nav-link">Journal</a>
         </nav>
 
         <div class="nav-actions">
@@ -47,7 +47,7 @@
       </div>
     </header>
 
-    <!-- Hero Section with Motion Silk Canvas -->
+    <!-- Clean Hero Section (Pure Photography, Zero Overlapping Cloth) -->
     <section class="hero-section" id="hero">
       <div class="container hero-grid">
         <div class="hero-content">
@@ -78,16 +78,8 @@
         </div>
 
         <div class="hero-visual-stage">
-          <!-- Real-Time Interactive Silk Veil Simulation -->
-          <canvas id="silkCanvas" class="hero-canvas-veil"></canvas>
-
           <div class="hero-image-frame">
-            <img src="public/images/hero_editorial.jpg" alt="Celestia tailored suit, minimalist perfume plinth and floating sky silk" width="1200" height="1200" loading="eager">
-          </div>
-
-          <div class="hero-floating-badge">
-            <span class="badge-dot"></span>
-            <span>Silk · Wool · Scent</span>
+            <img src="public/images/hero_editorial.jpg" alt="Celestia tailored suit, minimalist perfume plinth and floating sky silk" width="1017" height="1024" loading="eager">
           </div>
         </div>
       </div>
@@ -98,48 +90,48 @@
       </div>
     </section>
 
-    <!-- The 3 Pillars Section (01 FORM, 02 SCENT, 03 RITUAL) -->
+    <!-- The 3 Pillars Section (Each links to its own dedicated page) -->
     <section class="pillars-section">
       <div class="container">
         <div class="pillars-grid">
-          <!-- 01 FORM -->
-          <div class="pillar-card reveal-up" onclick="document.querySelector('#clothing').scrollIntoView({behavior:'smooth'})">
+          <!-- 01 FORM -> clothing.html -->
+          <a href="clothing.html" class="pillar-card reveal-up">
             <div class="pillar-header">
               <span class="pillar-number">01</span>
               <span class="pillar-title">Form</span>
               <span class="pillar-arrow">→</span>
             </div>
             <div class="pillar-image-box">
-              <img src="public/images/card_form.jpg" alt="Tailored suit lapel detail in ivory wool" width="800" height="500" loading="lazy">
+              <img src="public/images/card_form.jpg" alt="Tailored suit lapel detail in ivory wool" width="1015" height="1024" loading="lazy">
             </div>
             <span class="pillar-tag">Tailored Silhouettes & Unstructured Movement</span>
-          </div>
+          </a>
 
-          <!-- 02 SCENT -->
-          <div class="pillar-card reveal-up" onclick="document.querySelector('#fragrance').scrollIntoView({behavior:'smooth'})" style="transition-delay: 0.15s;">
+          <!-- 02 SCENT -> fragrance.html -->
+          <a href="fragrance.html" class="pillar-card reveal-up" style="transition-delay: 0.15s;">
             <div class="pillar-header">
               <span class="pillar-number">02</span>
               <span class="pillar-title">Scent</span>
               <span class="pillar-arrow">→</span>
             </div>
             <div class="pillar-image-box">
-              <img src="public/images/card_scent.jpg" alt="Luxury perfume bottle with white peony and crystal sphere" width="800" height="500" loading="lazy">
+              <img src="public/images/card_scent.jpg" alt="Luxury perfume bottle with white peony and crystal sphere" width="1024" height="859" loading="lazy">
             </div>
             <span class="pillar-tag">Haute Parfumerie & Second-Skin Musks</span>
-          </div>
+          </a>
 
-          <!-- 03 RITUAL -->
-          <div class="pillar-card reveal-up" onclick="document.querySelector('#journal').scrollIntoView({behavior:'smooth'})" style="transition-delay: 0.3s;">
+          <!-- 03 RITUAL -> journal.html -->
+          <a href="journal.html" class="pillar-card reveal-up" style="transition-delay: 0.3s;">
             <div class="pillar-header">
               <span class="pillar-number">03</span>
               <span class="pillar-title">Ritual</span>
               <span class="pillar-arrow">→</span>
             </div>
             <div class="pillar-image-box">
-              <img src="public/images/card_ritual.jpg" alt="Scented candle with natural draped linen and scalloped dish" width="800" height="500" loading="lazy">
+              <img src="public/images/card_ritual.jpg" alt="Scented candle with natural draped linen and scalloped dish" width="1018" height="1024" loading="lazy">
             </div>
             <span class="pillar-tag">Atmosphere, Texture & Daily Pauses</span>
-          </div>
+          </a>
         </div>
       </div>
     </section>
@@ -173,7 +165,7 @@
             </button>
           </div>
 
-          <a href="#clothing" class="editorial-link">
+          <a href="clothing.html" class="editorial-link">
             <span>Enter our world</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -183,7 +175,7 @@
         </div>
 
         <div class="feeling-image-wrap reveal-up" style="transition-delay: 0.2s;">
-          <img src="public/images/perfume_peony.jpg" alt="Celestia signature fragrance with white peony" width="1000" height="700" loading="lazy">
+          <img src="public/images/perfume_peony.jpg" alt="Celestia signature fragrance with white peony" width="1024" height="859" loading="lazy">
         </div>
       </div>
     </section>
@@ -209,143 +201,6 @@
       </div>
     </section>
 
-    <!-- Chapter 1: The Wardrobe (Clothing) -->
-    <section class="chapter-section" id="clothing">
-      <div class="container">
-        <div class="chapter-header reveal-up">
-          <div class="chapter-eyebrow">Celestia · The Wardrobe</div>
-          <h2 class="chapter-title">Clothing with a point of view.</h2>
-          <p class="chapter-subtitle">
-            A considered wardrobe begins with the way a piece moves, holds shape, and becomes part of your day.
-          </p>
-        </div>
-
-        <div class="split-layout">
-          <div class="split-visual reveal-up">
-            <img src="public/images/suit_portrait.jpg" alt="Tailored cream suit with open jacket and fluid trousers" width="900" height="1100" loading="lazy">
-          </div>
-
-          <div class="split-narrative reveal-up" style="transition-delay: 0.2s;">
-            <div class="narrative-tag">The Wardrobe</div>
-            <h3 class="narrative-heading">Form, without fuss.</h3>
-            <p class="narrative-body">
-              Celestia is building a point of view around refined silhouettes and the confidence of a well-chosen piece. Every garment is balanced to look effortless standing still and poetic in movement.
-            </p>
-            <button class="btn-primary-blue" data-open-booking>
-              <span>Book a call</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Living with the pieces -->
-        <div class="living-pieces-block">
-          <div class="reveal-up">
-            <h3 class="living-quote-title">Made to become yours.</h3>
-            <p class="living-quote-sub">
-              We believe the strongest pieces are the ones you return to, then make your own. Unlined construction, hand-finished horn buttons, and breathable natural fibers that age with grace.
-            </p>
-          </div>
-          <div class="living-image reveal-up" style="transition-delay: 0.2s;">
-            <img src="public/images/candle_scallop.jpg" alt="Living with Celestia pieces" width="1000" height="650" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Chapter 2: The Scent (Fragrance) -->
-    <section class="chapter-section" id="fragrance">
-      <div class="container">
-        <div class="chapter-header reveal-up">
-          <div class="chapter-eyebrow">Celestia · The Scent</div>
-          <h2 class="chapter-title">The part that stays with you.</h2>
-          <p class="chapter-subtitle">
-            Fragrance turns an ordinary moment into something you can return to. Celestia sees it as part of the same language as what you wear.
-          </p>
-        </div>
-
-        <div class="split-layout reverse">
-          <div class="split-visual reveal-up">
-            <img src="public/images/perfume_peony.jpg" alt="Celestia Eau de Parfum on reflective plinth" width="1000" height="700" loading="lazy">
-          </div>
-
-          <div class="split-narrative reveal-up" style="transition-delay: 0.2s;">
-            <div class="narrative-tag">The Scent</div>
-            <h3 class="narrative-heading">Leave a quieter mark.</h3>
-            <p class="narrative-body">
-              Discover a more sensory side of Celestia, where each detail is considered for the mood it creates. Not a cloud of scent, but an aura that invites closeness.
-            </p>
-
-            <!-- Interactive Olfactory Notes Pyramid -->
-            <div class="olfactory-pyramid">
-              <div class="pyramid-level active" data-tier="top">
-                <span class="pyramid-label">Top Note</span>
-                <span class="pyramid-notes">Sunlit Bergamot & Morning Air</span>
-              </div>
-              <div class="pyramid-level" data-tier="heart">
-                <span class="pyramid-label">Heart Note</span>
-                <span class="pyramid-notes">White Peony & Silk Chiffon</span>
-              </div>
-              <div class="pyramid-level" data-tier="base">
-                <span class="pyramid-label">Base Note</span>
-                <span class="pyramid-notes">Smoked Sandalwood & Cashmere Musk</span>
-              </div>
-              <p id="pyramidActiveDetail" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.6; transition: opacity 0.2s;">
-                First Impression: Calabrian Bergamot, Morning Aldehydes, Crushed Petitgrain — bright, buoyant, awakening the senses with the crispness of dawn light.
-              </p>
-            </div>
-
-            <button class="btn-primary-blue" data-open-booking>
-              <span>Book a call</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="scent-statement-banner reveal-up">
-          <h3>Scent is the finishing note, not an afterthought.</h3>
-        </div>
-      </div>
-    </section>
-
-    <!-- Chapter 3: Our World (Journal & Philosophy) -->
-    <section class="chapter-section" id="journal">
-      <div class="container">
-        <div class="chapter-header reveal-up">
-          <div class="chapter-eyebrow">Celestia · Our World</div>
-          <h2 class="chapter-title">An expression, not an equation.</h2>
-          <p class="chapter-subtitle">
-            Celestia is a place for dressing, scent, and ritual to meet with less noise and more intention.
-          </p>
-        </div>
-
-        <div class="split-layout">
-          <div class="split-visual reveal-up">
-            <img src="public/images/model_veil_full.jpg" alt="Model poised with ethereal sky silk veil in light-filled gallery space" width="700" height="900" loading="lazy">
-          </div>
-
-          <div class="split-narrative reveal-up" style="transition-delay: 0.2s;">
-            <div class="narrative-tag">Our Point of View</div>
-            <h3 class="narrative-heading">Make room for what feels like you.</h3>
-            <p class="narrative-body">
-              We are drawn to details that have a point of view: a silhouette, a texture, the air after a spritz, a ritual before you step out. No trends, no seasonal urgency—only pieces designed to be cherished for years.
-            </p>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <button class="btn-primary-blue" data-open-booking>
-                <span>Schedule a Private Fitting</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Global Footer -->
     <footer class="footer">
       <div class="container">
@@ -364,9 +219,9 @@
             <div>
               <div class="footer-col-title">Navigation</div>
               <ul class="footer-link-list">
-                <li><a href="#clothing">Clothing</a></li>
-                <li><a href="#fragrance">Fragrance</a></li>
-                <li><a href="#journal">Our world</a></li>
+                <li><a href="clothing.html">Clothing</a></li>
+                <li><a href="fragrance.html">Fragrance</a></li>
+                <li><a href="journal.html">Our world</a></li>
                 <li><a href="#" data-open-booking>Book a call</a></li>
               </ul>
             </div>

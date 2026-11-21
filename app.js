@@ -2,7 +2,6 @@
  * CELESTIA — Core Motion & Interaction Orchestrator
  */
 
-import { SilkSimulation } from './silk.js';
 import { SoundEngine } from './sound.js';
 import { BookingDrawer } from './booking.js';
 
@@ -25,29 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Initialize Interactive Silk Simulation
-  const silkCanvas = document.getElementById('silkCanvas');
-  if (silkCanvas) {
-    new SilkSimulation('silkCanvas');
-  }
-
-  // 3. Initialize Booking Drawer
+  // 2. Initialize Booking Drawer
   const booking = new BookingDrawer(sound);
 
-  // 4. Custom Magnetic Cursor
+  // 3. Custom Magnetic Cursor
   initMagneticCursor(sound);
 
-  // 5. Scroll Header & Reveal Animations
+  // 4. Scroll Header & Reveal Animations
   initScrollEffects();
 
-  // 6. Interactive Olfactory Pyramid
+  // 5. Interactive Olfactory Pyramid (for Fragrance pages)
   initOlfactoryPyramid(sound);
 
-  // 7. Interactive Sensory Toggle in "Begin with the feeling"
+  // 6. Interactive Sensory Spec Switcher
   initSensoryToggle(sound);
-
-  // 8. Smooth Anchor Navigation
-  initAnchorNav(sound);
 });
 
 /**
@@ -76,7 +66,7 @@ function initMagneticCursor(sound) {
   requestAnimationFrame(renderCursor);
 
   // Interactive targets hover state
-  const interactives = document.querySelectorAll('a, button, .pillar-card, .service-chip, .time-chip, .pyramid-level');
+  const interactives = document.querySelectorAll('a, button, .pillar-card, .service-chip, .time-chip, .pyramid-level, .journal-essay-card');
   interactives.forEach(el => {
     el.addEventListener('mouseenter', () => {
       document.body.classList.add('cursor-hover');
@@ -96,13 +86,15 @@ function initScrollEffects() {
   const reveals = document.querySelectorAll('.reveal-up');
 
   // Header shrink on scroll
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }, { passive: true });
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
 
   // Staggered reveals
   const observer = new IntersectionObserver((entries) => {
@@ -113,7 +105,7 @@ function initScrollEffects() {
       }
     });
   }, {
-    threshold: 0.15,
+    threshold: 0.12,
     rootMargin: '0px 0px -40px 0px'
   });
 
@@ -129,7 +121,7 @@ function initOlfactoryPyramid(sound) {
   if (!levels.length || !detailsEl) return;
 
   const notesInfo = {
-    top: 'First Impression: Calabrian Bergamot, Morning Aldehydes, Crushed Petitgrain — bright, buoyant, awakening the senses with the crispness of dawn light.',
+    top: 'First Impression: Calabrian Bergamot, Morning Air, Crushed Petitgrain — bright, buoyant, awakening the senses with the crispness of dawn light.',
     heart: 'Core Character: White Peony, Sheer Florentine Iris, Silk Chiffon Accord — intimate, powdered florals that settle close to the skin with quiet confidence.',
     base: 'Lasting Presence: Smoked Mysore Sandalwood, Clear Ambergris, Cashmere Musk — warm, enduring resonance that remains long after you have moved on.'
   };
@@ -183,47 +175,4 @@ function initSensoryToggle(sound) {
       sensorySpec.style.opacity = '1';
     }, 200);
   });
-}
-
-/**
- * Smooth Anchor Navigation
- */
-function initAnchorNav(sound) {
-  const links = document.querySelectorAll('a[href^="#"]');
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const targetId = link.getAttribute('href');
-      if (targetId === '#' || !targetId) return;
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-        if (sound) sound.playClick(1000);
-      }
-    });
-  });
-
-  // Track active section for nav highlighting
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    const scrollPos = window.scrollY + 200;
-
-    sections.forEach(sec => {
-      const top = sec.offsetTop;
-      const height = sec.offsetHeight;
-      if (scrollPos >= top && scrollPos < top + height) {
-        current = '#' + sec.getAttribute('id');
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === current) {
-        link.classList.add('active');
-      }
-    });
-  }, { passive: true });
 }

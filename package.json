@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "CELESTIA — Haute Couture & Haute Parfumerie in Motion",
   "scripts": {
-    "build": "mkdir -p dist && cp -r index.html 404.html style.css app.js silk.js sound.js booking.js public dist",
+    "build": "mkdir -p dist && cp -r *.html style.css app.js silk.js sound.js booking.js public dist",
     "start": "python3 -m http.server 3000"
   },
   "keywords": [
