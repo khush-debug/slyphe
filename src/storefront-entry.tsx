@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { KnockoutStorefront } from "../components/ui/knockout-landing-page";
+import { CelestiaStorefront } from "../components/ui/knockout-landing-page";
 
 const rootEl = document.getElementById("storefront-root");
 if (rootEl) {
@@ -18,5 +18,5 @@ if (rootEl) {
     "product-4": "/public/images/perfume_square.jpg",
     "product-5": "/public/images/card_ritual.jpg",
   };
-  root.render(<KnockoutStorefront photos={customPhotos} />);
+  root.render(<CelestiaStorefront photos={customPhotos} />);
 }

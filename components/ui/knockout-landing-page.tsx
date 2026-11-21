@@ -8,7 +8,7 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useGSAP } from "@gsap/react";
 import "@fontsource-variable/manrope";
 
-const storefrontStyles = `:root[data-knockout-theme] {
+const storefrontStyles = `:root[data-celestia-theme] {
   font-family: "Manrope Variable", system-ui, sans-serif;
   font-synthesis: none;
   color-scheme: light;
@@ -17,12 +17,12 @@ const storefrontStyles = `:root[data-knockout-theme] {
   -webkit-font-smoothing: antialiased;
 }
 
-:root[data-knockout-theme="dark"] {
+:root[data-celestia-theme="dark"] {
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-:root[data-knockout-theme] body { background: var(--page); color: var(--ink); font-family: inherit; margin: 0; }
+:root[data-celestia-theme] body { background: var(--page); color: var(--ink); font-family: inherit; margin: 0; }
 img { display: block; max-inline-size: 100%; }
 button, input { font: inherit; }
 button { color: inherit; cursor: pointer; }
@@ -93,7 +93,7 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-:root[data-knockout-theme] {
+:root[data-celestia-theme] {
   scrollbar-gutter: stable;
   --cutline-obsidian: #050505;
   --cutline-cream: #ebded8;
@@ -101,7 +101,7 @@ a { color: inherit; text-decoration: none; }
   --product: #eeeae7;
 }
 
-:root[data-knockout-theme], [data-cutline-theme="light"] {
+:root[data-celestia-theme], [data-cutline-theme="light"] {
   --page: var(--cutline-cream);
   --ink: #151211;
   --muted: #675955;
@@ -112,7 +112,7 @@ a { color: inherit; text-decoration: none; }
   --accent-ink: #fff1eb;
 }
 
-:root[data-knockout-theme="dark"], [data-cutline-theme="dark"] {
+:root[data-celestia-theme="dark"], [data-cutline-theme="dark"] {
   --page: var(--cutline-obsidian);
   --ink: #eae0da;
   --muted: #a59892;
@@ -123,7 +123,7 @@ a { color: inherit; text-decoration: none; }
   --accent-ink: #1a0807;
 }
 
-:root[data-knockout-theme="signal"], [data-cutline-theme="signal"] {
+:root[data-celestia-theme="signal"], [data-cutline-theme="signal"] {
   --page: var(--cutline-signal);
   --ink: #fff0eb;
   --muted: #ffefeb;
@@ -960,7 +960,7 @@ const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "
 function Wordmark({ suffix = false }: { suffix?: boolean }) {
   return (
     <span className="cutline-word" aria-hidden="true">
-      {Array.from("KNOCKOUT", (letter, index) => (
+      {Array.from("CELESTIA", (letter, index) => (
         <span key={index} className="cutline-glyph"><span className="cutline-glyph-ink">{letter}</span></span>
       ))}
       {suffix && <span className="cutline-word-stamp">(01)</span>}
@@ -1049,7 +1049,7 @@ function ProductCard({ product, priority, select }: {
   );
 }
 
-export function KnockoutStorefront({ photos }: { photos: PhotoUrls }) {
+export function CelestiaStorefront({ photos }: { photos: PhotoUrls }) {
   const { introLooks, firstDrop, spreads } = useMemo(() => buildCatalog(photos), [photos]);
   const requestedTheme = typeof window === "undefined" ? null : new URLSearchParams(location.search).get("theme");
   const [theme, setTheme] = useState< Theme>(requestedTheme === "light" || requestedTheme === "signal" ? requestedTheme : "dark");
@@ -1074,8 +1074,8 @@ export function KnockoutStorefront({ photos }: { photos: PhotoUrls }) {
 
   useLayoutEffect(() => {
     const html = document.documentElement;
-    html.dataset.knockoutTheme = theme;
-    return () => { delete html.dataset.knockoutTheme; };
+    html.dataset.celestiaTheme = theme;
+    return () => { delete html.dataset.celestiaTheme; };
   }, [theme]);
 
   useLayoutEffect(() => {
@@ -1144,7 +1144,7 @@ export function KnockoutStorefront({ photos }: { photos: PhotoUrls }) {
         <a className="preview-skip" href="#collection">Skip to collection</a>
         <header className="cutline-header">
           <div className="cutline-header-inner cutline-wrap">
-            <button className="cutline-logo" type="button" onClick={replay} aria-label="Knockout, replay the opening">
+            <button className="cutline-logo" type="button" onClick={replay} aria-label="CELESTIA, replay the opening">
               <Asterisk aria-hidden="true" />
             </button>
             <nav aria-label="Main navigation">
@@ -1168,11 +1168,11 @@ export function KnockoutStorefront({ photos }: { photos: PhotoUrls }) {
         <main>
           <section className="cutline-hero cutline-wrap" aria-labelledby="cutline-title">
             <div className="cutline-title-frame" ref={titleFrame}>
-              <h1 id="cutline-title" ref={title} tabIndex={-1} aria-label="Knockout"><Wordmark suffix /></h1>
+              <h1 id="cutline-title" ref={title} tabIndex={-1} aria-label="CELESTIA"><Wordmark suffix /></h1>
             </div>
             <div className="cutline-hero-rule" aria-hidden="true" />
             <div className="cutline-hero-note">
-              <strong>Knockout Studio</strong>
+              <strong>CELESTIA Atelier</strong>
               <a href="#collection">Shop the collection <ArrowDown aria-hidden="true" /></a>
               <p>Outerwear and everyday layers, cut for the way you move.</p>
               <span>© 2026</span>
@@ -1201,7 +1201,7 @@ export function KnockoutStorefront({ photos }: { photos: PhotoUrls }) {
             <div className="cutline-copyright-mask"><span className="cutline-copyright" aria-label="Copyright 2026">©26</span></div>
           </div>
           <div className="cutline-footer-bottom">
-            <span>Knockout Studio</span>
+            <span>CELESTIA Atelier</span>
             <a href="#collection">Shop the collection <ArrowUpRight aria-hidden="true" /></a>
             <button type="button" className="cutline-replay" onClick={replay}><RotateCcw aria-hidden="true" /> Replay intro</button>
           </div>
@@ -1272,3 +1272,4 @@ export function KnockoutStorefront({ photos }: { photos: PhotoUrls }) {
     </div>
   );
 }
+export { CelestiaStorefront as KnockoutStorefront };

@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import { KnockoutStorefront } from "@/components/ui/knockout-landing-page";
+import { CelestiaStorefront } from "@/components/ui/knockout-landing-page";
 
 /**
- * Demo integration for KnockoutStorefront component.
+ * Demo integration for CelestiaStorefront component.
  * Custom images can be passed via the `photos` map or left empty to use the built-in catalog assets.
  */
-export default function KnockoutDemo() {
+export default function CelestiaDemo() {
   return (
     <main className="min-h-screen w-full">
-      <KnockoutStorefront photos={{}} />
+      <CelestiaStorefront photos={{}} />
     </main>
   );
 }
