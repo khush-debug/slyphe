@@ -1,25 +1,37 @@
 /**
- * CELESTIA — Magnetic Cursor Engine
- * Smooth Lerp follower with magnetic pull toward primary buttons and interactive elements.
+ * CELESTIA — Magnetic Contextual Cursor Engine
+ * Smooth Lerp follower with magnetic pull toward interactive elements and contextual cue pills.
  */
 export class MagneticCursor {
-    cursor = null;
-    follower = null;
+    dot = null;
+    ring = null;
+    label = null;
     mouseX = -100;
     mouseY = -100;
-    followerX = -100;
-    followerY = -100;
+    ringX = -100;
+    ringY = -100;
+    targetX = -100;
+    targetY = -100;
+    isHovered = false;
     isPointerFine = true;
     soundEngine = null;
-    animationFrameId = null;
+    animFrameId = null;
     constructor(soundEngine) {
         this.soundEngine = soundEngine || null;
-        this.isPointerFine = window.matchMedia('(pointer: fine)').matches;
+        this.isPointerFine = typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
         if (!this.isPointerFine)
             return;
-        this.cursor = document.getElementById('customCursor');
-        this.follower = document.getElementById('customCursorFollower');
-        if (this.cursor && this.follower) {
+        this.dot = document.getElementById('customCursor') || document.getElementById('cursorDot');
+        this.ring = document.getElementById('customCursorFollower') || document.getElementById('cursorRing');
+        if (this.ring && !this.ring.querySelector('.cursor-label')) {
+            this.label = document.createElement('span');
+            this.label.className = 'cursor-label';
+            this.ring.appendChild(this.label);
+        }
+        else if (this.ring) {
+            this.label = this.ring.querySelector('.cursor-label');
+        }
+        if (this.dot && this.ring) {
             this.bindEvents();
             this.startLoop();
         }
@@ -28,59 +40,94 @@ export class MagneticCursor {
         window.addEventListener('mousemove', (e) => {
             this.mouseX = e.clientX;
             this.mouseY = e.clientY;
-            if (this.cursor) {
-                this.cursor.style.transform = `translate3d(${this.mouseX}px, ${this.mouseY}px, 0) translate(-50%, -50%)`;
+            if (!this.isHovered) {
+                this.targetX = this.mouseX;
+                this.targetY = this.mouseY;
             }
-        }, { passive: true });
-        // Interactive element detection
-        this.attachInteractiveListeners();
-        // Magnetic pull on primary buttons
-        this.attachMagneticPull();
+            if (this.dot) {
+                this.dot.style.transform = `translate3d(${this.mouseX}px, ${this.mouseY}px, 0) translate(-50%, -50%)`;
+            }
+        });
+        document.addEventListener('mousedown', () => {
+            if (this.ring)
+                this.ring.classList.add('cursor-press');
+            if (this.soundEngine)
+                this.soundEngine.playClick(1900);
+        });
+        document.addEventListener('mouseup', () => {
+            if (this.ring)
+                this.ring.classList.remove('cursor-press');
+        });
+        this.bindHoverElements();
     }
-    attachInteractiveListeners() {
-        const targets = document.querySelectorAll('a, button, .pillar-card, .service-chip, .time-chip, .pyramid-level, .journal-essay-card, [data-open-booking]');
-        targets.forEach((el) => {
+    bindHoverElements() {
+        const interactables = document.querySelectorAll('a, button, .pillar-card, .interactive-card, .pyramid-level, .swatch-btn, [data-cursor]');
+        interactables.forEach((el) => {
             el.addEventListener('mouseenter', () => {
-                document.body.classList.add('cursor-hover');
-                if (this.soundEngine) {
+                this.isHovered = true;
+                if (this.ring) {
+                    this.ring.classList.add('cursor-active');
+                }
+                const customCue = el.getAttribute('data-cursor');
+                if (this.label && customCue) {
+                    this.label.textContent = customCue;
+                    this.ring?.classList.add('has-label');
+                }
+                else if (this.label) {
+                    if (el.closest('#wardrobe-chapter') || el.classList.contains('swatch-btn')) {
+                        this.label.textContent = 'Drape';
+                        this.ring?.classList.add('has-label');
+                    }
+                    else if (el.closest('#fragrance-chapter') || el.classList.contains('pyramid-level')) {
+                        this.label.textContent = 'Inhale';
+                        this.ring?.classList.add('has-label');
+                    }
+                    else if (el.classList.contains('pillar-card')) {
+                        this.label.textContent = 'Explore';
+                        this.ring?.classList.add('has-label');
+                    }
+                    else {
+                        this.ring?.classList.remove('has-label');
+                    }
+                }
+                // Magnetic effect on small buttons
+                if (el.tagName === 'BUTTON' || el.classList.contains('btn') || el.classList.contains('btn-nav-call')) {
+                    const rect = el.getBoundingClientRect();
+                    this.targetX = rect.left + rect.width / 2;
+                    this.targetY = rect.top + rect.height / 2;
+                }
+                if (this.soundEngine && Math.random() > 0.4) {
                     this.soundEngine.playClick(2400);
                 }
             });
             el.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-hover');
-            });
-        });
-    }
-    attachMagneticPull() {
-        const magneticElements = document.querySelectorAll('.btn-primary-blue, .btn-white-pill, .btn-nav-call');
-        magneticElements.forEach((btn) => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const deltaX = (e.clientX - centerX) * 0.18;
-                const deltaY = (e.clientY - centerY) * 0.18;
-                btn.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate3d(0, 0, 0)';
+                this.isHovered = false;
+                this.targetX = this.mouseX;
+                this.targetY = this.mouseY;
+                if (this.ring) {
+                    this.ring.classList.remove('cursor-active', 'has-label');
+                }
+                if (this.label) {
+                    this.label.textContent = '';
+                }
             });
         });
     }
     startLoop() {
         const render = () => {
-            this.followerX += (this.mouseX - this.followerX) * 0.18;
-            this.followerY += (this.mouseY - this.followerY) * 0.18;
-            if (this.follower) {
-                this.follower.style.transform = `translate3d(${this.followerX}px, ${this.followerY}px, 0) translate(-50%, -50%)`;
+            // Lerp smoothing (0.16 factor for silk response)
+            this.ringX += (this.targetX - this.ringX) * 0.16;
+            this.ringY += (this.targetY - this.ringY) * 0.16;
+            if (this.ring) {
+                this.ring.style.transform = `translate3d(${this.ringX}px, ${this.ringY}px, 0) translate(-50%, -50%)`;
             }
-            this.animationFrameId = requestAnimationFrame(render);
+            this.animFrameId = requestAnimationFrame(render);
         };
         render();
     }
     destroy() {
-        if (this.animationFrameId !== null) {
-            cancelAnimationFrame(this.animationFrameId);
+        if (this.animFrameId) {
+            cancelAnimationFrame(this.animFrameId);
         }
     }
 }

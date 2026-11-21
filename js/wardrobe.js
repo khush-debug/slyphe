@@ -1,13 +1,15 @@
 /**
  * CELESTIA — Wardrobe Specification & Material Inspector
- * Typed controller for tactile fabric swatches and sensory specification switches.
+ * Typed controller for tactile fabric swatches, drape physics, and sensory specification switches.
  */
+import { FabricSimulator } from './fabric-sim.js';
 export class WardrobeController {
     soundEngine = null;
     toggleBtn = null;
     labelEl = null;
     specEl = null;
     isOlfactory = false;
+    fabricSim = null;
     static SPECS = {
         fabric: {
             label: 'SIGNATURE FABRIC SPECIFICATION',
@@ -21,15 +23,27 @@ export class WardrobeController {
         }
     };
     static SWATCHES = {
-        'wool-silk': '100% Biella milled virgin wool woven with 15% mulberry silk. Breathable all-season weight (320gsm). Hand-stitched horn buttons, cupro sleeve lining, and double-pleated relaxed trousers.',
-        'silk-crepe': '100% Mulberry silk crepe de chine (210gsm). Fluid liquid handfeel, matte luster, washed softly in Lake Como waters for an unlined, effortless drape that floats around the body.',
-        'flannel': 'Finely carded virgin wool melange twill (360gsm). Brushed for subtle tactile warmth with structural memory that resists creasing during long travels.'
+        'wool-silk': {
+            desc: '100% Biella milled virgin wool woven with 15% mulberry silk. Breathable all-season weight (320gsm). Hand-stitched horn buttons, cupro sleeve lining, and double-pleated relaxed trousers.',
+            metrics: 'Weight: 320gsm · Weave: 2/2 Twill · Drape Factor: 0.82 Fluid'
+        },
+        'silk-crepe': {
+            desc: '100% Mulberry silk crepe de chine (210gsm). Fluid liquid handfeel, matte luster, washed softly in Lake Como waters for an unlined, effortless drape that floats around the body.',
+            metrics: 'Weight: 210gsm · Weave: Crepe de Chine · Drape Factor: 0.95 Weightless'
+        },
+        'flannel': {
+            desc: 'Finely carded virgin wool melange twill (360gsm). Brushed for subtle tactile warmth with structural memory that resists creasing during long travels.',
+            metrics: 'Weight: 360gsm · Weave: Brushed Flannel · Drape Factor: 0.68 Tailored Structure'
+        }
     };
     constructor(soundEngine) {
         this.soundEngine = soundEngine || null;
         this.toggleBtn = document.getElementById('sensoryToggleBtn');
         this.labelEl = document.getElementById('sensoryLabel');
         this.specEl = document.getElementById('sensorySpec');
+        if (document.getElementById('fabricPhysicsCanvas')) {
+            this.fabricSim = new FabricSimulator('fabricPhysicsCanvas');
+        }
         this.bindEvents();
         this.bindSwatchEvents();
     }
@@ -46,6 +60,7 @@ export class WardrobeController {
     bindSwatchEvents() {
         const swatches = document.querySelectorAll('.swatch-btn[data-swatch]');
         const specDetail = document.getElementById('garmentSpecDetail');
+        const metricDetail = document.getElementById('garmentMetricDetail');
         swatches.forEach((btn) => {
             btn.addEventListener('click', () => {
                 const key = btn.getAttribute('data-swatch');
@@ -59,12 +74,23 @@ export class WardrobeController {
                 btn.classList.add('active');
                 btn.style.borderColor = 'var(--border-active)';
                 btn.style.background = '#FFFFFF';
+                if (this.fabricSim) {
+                    this.fabricSim.setFabricType(key);
+                }
+                const data = WardrobeController.SWATCHES[key];
                 if (specDetail) {
                     specDetail.style.opacity = '0';
                     setTimeout(() => {
-                        specDetail.textContent = WardrobeController.SWATCHES[key];
+                        specDetail.textContent = data.desc;
                         specDetail.style.opacity = '1';
-                    }, 150);
+                    }, 140);
+                }
+                if (metricDetail) {
+                    metricDetail.style.opacity = '0';
+                    setTimeout(() => {
+                        metricDetail.textContent = data.metrics;
+                        metricDetail.style.opacity = '1';
+                    }, 140);
                 }
                 if (this.soundEngine) {
                     this.soundEngine.playClick(2100);
@@ -87,7 +113,7 @@ export class WardrobeController {
                     this.labelEl.style.opacity = '1';
                     this.specEl.style.opacity = '1';
                 }
-            }, 180);
+            }, 160);
         }
     }
 }

@@ -1,8 +1,9 @@
 /**
  * CELESTIA — Interactive Olfactory Pyramid & Accords Explorer
- * Typed controller for exploring fragrance tiers: Top, Heart, and Base notes.
+ * Typed controller for exploring fragrance tiers with real-time sillage particle diffusion.
  */
 
+import { SillageSimulator } from './sillage-sim.js';
 import { SoundEngine } from './sound.js';
 import { OlfactoryNoteData, OlfactoryTier } from './types.js';
 
@@ -10,6 +11,7 @@ export class OlfactoryController {
   private soundEngine: SoundEngine | null = null;
   private container: HTMLElement | null = null;
   private detailText: HTMLElement | null = null;
+  private sillageSim: SillageSimulator | null = null;
 
   public static readonly NOTES: Record<OlfactoryTier, OlfactoryNoteData> = {
     top: {
@@ -46,9 +48,14 @@ export class OlfactoryController {
     this.container = document.querySelector('.olfactory-pyramid');
     this.detailText = document.getElementById('pyramidActiveDetail');
 
+    if (document.getElementById('sillageCanvas')) {
+      this.sillageSim = new SillageSimulator('sillageCanvas');
+    }
+
     if (this.container) {
       this.bindEvents();
     }
+    this.bindSillageSlider();
   }
 
   private bindEvents(): void {
@@ -63,6 +70,10 @@ export class OlfactoryController {
         levels.forEach((l) => l.classList.remove('active'));
         level.classList.add('active');
 
+        if (this.sillageSim) {
+          this.sillageSim.setTier(tier);
+        }
+
         this.updateDetail(tier);
 
         if (this.soundEngine) {
@@ -70,6 +81,26 @@ export class OlfactoryController {
           this.soundEngine.playClick(freqs[tier] || 1500);
         }
       });
+    });
+  }
+
+  private bindSillageSlider(): void {
+    const slider = document.getElementById('sillageIntensitySlider') as HTMLInputElement | null;
+    const valueDisplay = document.getElementById('sillageValueDisplay');
+
+    slider?.addEventListener('input', () => {
+      const val = parseFloat(slider.value);
+      if (this.sillageSim) {
+        this.sillageSim.setIntensity(val);
+      }
+      if (valueDisplay) {
+        const labels: Record<number, string> = {
+          1: 'Intimate Skin Aura (0.5m)',
+          2: 'Conversational Sillage (1.5m)',
+          3: 'Room-Filling Presence (3.0m)'
+        };
+        valueDisplay.textContent = labels[Math.round(val)] || `${val.toFixed(1)}x Diffusion`;
+      }
     });
   }
 
@@ -83,6 +114,6 @@ export class OlfactoryController {
         this.detailText.innerHTML = `<strong>${data.title} (${data.accord}):</strong> ${data.description}`;
         this.detailText.style.opacity = '1';
       }
-    }, 180);
+    }, 160);
   }
 }

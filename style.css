@@ -1722,3 +1722,272 @@ body:hover .custom-cursor { opacity: 1; }
   white-space: pre-wrap;
 }
 
+
+
+/* ==========================================================================
+   NOCTURNE SALON THEME & CINEMATIC MOTION UPGRADES
+   ========================================================================== */
+
+html[data-theme="dark"] {
+  --bg-primary: #0A0A0C;
+  --bg-secondary: #121217;
+  --bg-card: #17171E;
+  --bg-dark: #050507;
+  --text-primary: #EDECE8;
+  --text-muted: #9E9EA8;
+  --text-light: #FBFBFA;
+  --text-subtle: #75747F;
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-active: #EDECE8;
+  --shadow-subtle: 0 20px 48px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="dark"] body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .header {
+  background: rgba(10, 10, 12, 0.88);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .brand-logo,
+html[data-theme="dark"] .nav-link,
+html[data-theme="dark"] .hero-title,
+html[data-theme="dark"] .pillar-title,
+html[data-theme="dark"] .statement-text,
+html[data-theme="dark"] .feeling-heading,
+html[data-theme="dark"] .page-headline,
+html[data-theme="dark"] .narrative-heading {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .pillar-card,
+html[data-theme="dark"] .modal-container,
+html[data-theme="dark"] .presence-card,
+html[data-theme="dark"] .spec-card,
+html[data-theme="dark"] .pyramid-level {
+  background: var(--bg-card);
+  border-color: var(--border-light);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .pillar-tag,
+html[data-theme="dark"] .hero-subtitle,
+html[data-theme="dark"] .feeling-copy,
+html[data-theme="dark"] .page-description,
+html[data-theme="dark"] .narrative-body {
+  color: var(--text-muted);
+}
+
+/* Page Transition Smoothing */
+body {
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body.page-transitioning {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* Magnetic Contextual Cursor Follower Upgrade */
+.custom-cursor-follower.has-label {
+  width: auto !important;
+  min-width: 68px;
+  height: 28px !important;
+  padding: 0 14px;
+  border-radius: 9999px !important;
+  background: var(--text-primary) !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.cursor-label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bg-primary);
+  font-weight: 700;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.custom-cursor-follower.cursor-press {
+  transform: scale(0.85);
+}
+
+/* Day / Nocturne Salon Switcher in Header */
+.theme-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 1px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-mode-btn:hover {
+  border-color: var(--border-active);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Signature Presence Atelier Section */
+.presence-studio-section {
+  padding: 7rem 0;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.presence-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .presence-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.presence-options-group {
+  margin-bottom: 2rem;
+}
+
+.presence-group-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.presence-btn-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.presence-select-btn {
+  padding: 0.6rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  border-radius: 1px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.presence-select-btn:hover {
+  border-color: var(--text-primary);
+}
+
+.presence-select-btn.active {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+  font-weight: 600;
+}
+
+.presence-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  border-radius: 2px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+}
+
+.presence-preview-frame {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  margin-bottom: 1.8rem;
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+.presence-preview-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.25s ease, transform 0.4s ease;
+}
+
+.presence-details h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.presence-meta-line {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+  line-height: 1.5;
+}
+
+/* Interactive Canvas Simulators */
+.interactive-sim-container {
+  margin: 2.5rem 0;
+  border: 1px solid var(--border-light);
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 2px;
+  position: relative;
+}
+
+.interactive-sim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.interactive-sim-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-subtle);
+}
+
+.interactive-sim-badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  background: rgba(40, 83, 195, 0.1);
+  color: var(--bg-royal);
+  border-radius: 1px;
+}
+
+.fabric-canvas, .sillage-canvas {
+  width: 100%;
+  height: 220px;
+  display: block;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.02) 100%);
+  cursor: grab;
+}
+
+.fabric-canvas:active {
+  cursor: grabbing;
+}

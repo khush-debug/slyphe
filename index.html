@@ -30,6 +30,12 @@
         </nav>
 
         <div class="nav-actions">
+          <!-- Salon Day/Nocturne Mode Toggle -->
+          <button class="theme-mode-btn" id="themeModeToggleBtn" aria-label="Toggle Nocturne Salon Theme">
+            <span class="mode-icon">✦</span>
+            <span class="mode-text">Alabaster</span>
+          </button>
+
           <!-- Tactile Sound Toggle -->
           <button class="sound-toggle-btn" id="soundToggleBtn" aria-label="Toggle Atmosphere Sound">
             <div class="sound-bars">
@@ -353,6 +359,75 @@
               <button class="btn-nav-call" data-open-booking>
                 <span>Schedule a Consultation</span>
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Signature Presence Atelier Studio -->
+    <section class="presence-studio-section" id="presenceStudioSection">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto 3.5rem;">
+          <div class="page-eyebrow" style="margin-bottom: 0.8rem;">Bespoke Atelier Experience</div>
+          <h2 class="page-headline" style="font-size: clamp(2.2rem, 4vw, 3.2rem); margin-bottom: 1.2rem;">Compose your signature presence.</h2>
+          <p class="page-description">
+            Harmonize suiting architecture with haute parfumerie accords. Explore how weight, silhouette, and scent resonance form a singular expression.
+          </p>
+        </div>
+
+        <div class="presence-grid">
+          <!-- Left: Selectors -->
+          <div class="presence-selectors">
+            <!-- 1. Suiting Silhouette -->
+            <div class="presence-options-group">
+              <span class="presence-group-label">01 · Suiting Silhouette</span>
+              <div class="presence-btn-cluster">
+                <button type="button" class="presence-select-btn active" data-select-silhouette="biella-ivory">Double-Breasted Wool & Silk</button>
+                <button type="button" class="presence-select-btn" data-select-silhouette="chiffon-trench">Fluid Sky Silk Trench</button>
+                <button type="button" class="presence-select-btn" data-select-silhouette="midnight-barathea">Midnight Barathea Tuxedo</button>
+              </div>
+            </div>
+
+            <!-- 2. Olfactory Accord -->
+            <div class="presence-options-group">
+              <span class="presence-group-label">02 · Haute Parfumerie Accord</span>
+              <div class="presence-btn-cluster">
+                <button type="button" class="presence-select-btn" data-select-accord="bergamot-dawn">Aura I · Sunlit Bergamot</button>
+                <button type="button" class="presence-select-btn active" data-select-accord="peony-silk">Aura II · Velvet Peony & Silk</button>
+                <button type="button" class="presence-select-btn" data-select-accord="sandalwood-smoke">Aura III · Smoked Sandalwood</button>
+              </div>
+            </div>
+
+            <!-- 3. Ambient Mood -->
+            <div class="presence-options-group">
+              <span class="presence-group-label">03 · Salon Setting</span>
+              <div class="presence-btn-cluster">
+                <button type="button" class="presence-select-btn" data-select-ambience="daybreak">Daybreak Gallery</button>
+                <button type="button" class="presence-select-btn active" data-select-ambience="golden-hour">Golden Hour Salon</button>
+                <button type="button" class="presence-select-btn" data-select-ambience="nocturne">Nocturne Evening</button>
+              </div>
+            </div>
+
+            <div style="margin-top: 2.2rem;">
+              <button type="button" id="bookCuratedPairBtn" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.8rem;">
+                <span>Request Bespoke Curation</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Live Curated Card -->
+          <div class="presence-card">
+            <div class="presence-preview-frame">
+              <img id="curatedPreviewImg" src="public/images/card_form.jpg" alt="Curated silhouette and fragrance" width="1015" height="1024" loading="eager">
+            </div>
+            <div class="presence-details">
+              <div style="font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bg-royal); font-weight: 600; margin-bottom: 0.4rem;">Curated Presence Profile</div>
+              <h3 id="curatedTitle">The Biella Double-Breasted Suit</h3>
+              <p class="presence-meta-line" id="curatedFabric">320gsm Italian Virgin Wool & 15% Mulberry Silk · Lanificio Biella, Italy</p>
+              <p class="presence-meta-line" id="curatedAccord" style="color: var(--text-primary); font-weight: 500;">Aura II · White Peony & Silk Chiffon (24% Extrait de Parfum)</p>
+              <p class="presence-meta-line" id="curatedNotes" style="font-size: 0.82rem; margin-top: 0.8rem; font-style: italic;">Presence Note: Structured peak lapel, soft natural canvas shoulder, fluid drape in stride. Blended with velvety, intimate, skin-warmed floral textile.</p>
             </div>
           </div>
         </div>
