@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CELESTIA — Cutline Lookbook & Interactive Storefront</title>
+    <meta name="description" content="Experience the dynamic Cutline interactive fashion lookbook and haute parfumerie storefront powered by React and GSAP.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="js/storefront.bundle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      #storefront-root {
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .nav-link.active {
+        color: var(--color-ink, #0c0b0b);
+        border-bottom: 1.5px solid var(--color-ink, #0c0b0b);
+        padding-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom Editorial Kinetic Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Persistent Global Header -->
+    <header class="header">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-logo" aria-label="Celestia Home">CELESTIA</a>
+
+        <nav class="nav-center" aria-label="Main Navigation">
+          <a href="clothing.html" class="nav-link">Clothing</a>
+          <a href="fragrance.html" class="nav-link">Fragrance</a>
+          <a href="store.html" class="nav-link active">Lookbook</a>
+          <a href="journal.html" class="nav-link">Journal</a>
+        </nav>
+
+        <div class="nav-actions">
+          <!-- Tactile Sound Toggle -->
+          <button class="sound-toggle-btn" id="soundToggleBtn" aria-label="Toggle Atmosphere Sound">
+            <div class="sound-bars">
+              <span class="sound-bar"></span>
+              <span class="sound-bar"></span>
+              <span class="sound-bar"></span>
+            </div>
+            <span id="soundStatusText">Sound: Off</span>
+          </button>
+
+          <!-- Book a Call Header Action -->
+          <button class="btn-nav-call" data-open-booking>
+            <span>Book a call</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- React Knockout Storefront Mount -->
+    <main id="storefront-root" role="main">
+      <!-- Loading Skeleton for smooth entry -->
+      <div style="display: grid; place-items: center; min-height: 80vh; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; letter-spacing: 0.05em; color: #666;">
+        <p>Loading Celestia Lookbook & Storefront...</p>
+      </div>
+    </main>
+
+    <!-- Global Consultation Booking Modal -->
+    <div class="modal-overlay" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-container">
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close consultation modal">&times;</button>
+        <div class="modal-header">
+          <span class="modal-eyebrow">Private Client Services</span>
+          <h2 class="modal-title" id="modalTitle">Book a Discovery Call</h2>
+          <p class="modal-subtitle">Converse with a Celestia stylist and nose to curate a silhouette and olfactory presence attuned to you.</p>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="clientName">Full Name</label>
+              <input type="text" id="clientName" name="name" required placeholder="Elena Vance" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="clientEmail">Email Address</label>
+              <input type="email" id="clientEmail" name="email" required placeholder="elena@atelier.com" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="interestSelect">Area of Interest</label>
+            <select id="interestSelect" name="interest" required>
+              <option value="" disabled selected>Select an experience</option>
+              <option value="wardrobe">Bespoke Tailoring & Wardrobe Architecture</option>
+              <option value="fragrance">Haute Parfumerie & Personal Olfactory Profile</option>
+              <option value="combined">Complete Sensorial Experience (Suiting & Scent)</option>
+              <option value="curation">Seasonal Atelier Private Curation</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="clientNotes">Notes or Sensory Preferences (Optional)</label>
+            <textarea id="clientNotes" name="notes" rows="3" placeholder="Tell us about the textures, silhouettes, or scent profiles you are drawn to..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-submit-booking">
+            <span>Confirm Discovery Session</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/storefront.bundle.js"></script>
+  </body>
+</html>

@@ -4,7 +4,8 @@
   "type": "module",
   "description": "CELESTIA — Haute Couture & Haute Parfumerie in Motion with TypeScript Architecture",
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "build:store": "esbuild src/storefront-entry.tsx --bundle --minify --format=esm --outfile=js/storefront.bundle.js --loader:.woff2=dataurl --loader:.woff=dataurl --loader:.ttf=dataurl --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build": "npm run build:store && node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "start": "python3 -m http.server 3000"
   },
@@ -12,6 +13,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.7.0",
+    "esbuild": "^0.28.2",
     "postcss": "^8.5.33",
     "tailwindcss": "^4.3.5",
     "typescript": "^5.7.0"

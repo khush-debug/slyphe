@@ -54,12 +54,20 @@ if (fs.existsSync(srcDir)) {
   }
 }
 
-// 2. Copy root HTML and CSS files to dist/
+// 2. Sync all bundled assets in js/ to dist/js/
+if (fs.existsSync(jsOutDir)) {
+  for (const f of fs.readdirSync(jsOutDir)) {
+    fs.copyFileSync(path.join(jsOutDir, f), path.join(distJsDir, f));
+  }
+}
+
+// 3. Copy root HTML and CSS files to dist/
 const rootFilesToCopy = [
   'index.html',
   'clothing.html',
   'fragrance.html',
   'journal.html',
+  'store.html',
   '404.html',
   'style.css',
   'vercel.json'
@@ -73,7 +81,7 @@ for (const file of rootFilesToCopy) {
   }
 }
 
-// 3. Copy public/ directory to dist/public/
+// 4. Copy public/ directory to dist/public/
 function copyRecursiveSync(src, dest) {
   const exists = fs.existsSync(src);
   const stats = exists && fs.statSync(src);
