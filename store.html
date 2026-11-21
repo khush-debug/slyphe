@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CELESTIA — Cutline Lookbook & Interactive Storefront</title>
     <meta name="description" content="Experience the dynamic Cutline interactive fashion lookbook and haute parfumerie storefront powered by React and GSAP.">
-    <link rel="stylesheet" href="style.css?v=20261121d">
-    <link rel="stylesheet" href="js/celestia-storefront.bundle.css?v=20261121d">
+    <link rel="stylesheet" href="style.css?v=20261121e">
+    <link rel="stylesheet" href="js/celestia-storefront.bundle.css?v=20261121e">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,6 +20,12 @@
         color: var(--color-ink, #0c0b0b);
         border-bottom: 1.5px solid var(--color-ink, #0c0b0b);
         padding-bottom: 2px;
+      }
+      .cutline-header {
+        display: none !important;
+      }
+      .cutline-scroll-content {
+        padding-top: calc(var(--header-height, 80px) + 10px) !important;
       }
     </style>
   </head>
@@ -63,53 +69,84 @@
       </div>
     </main>
 
-    <!-- Global Consultation Booking Modal -->
-    <div class="modal-overlay" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-      <div class="modal-container">
-        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close consultation modal">&times;</button>
-        <div class="modal-header">
-          <span class="modal-eyebrow">Private Client Services</span>
-          <h2 class="modal-title" id="modalTitle">Book a Discovery Call</h2>
-          <p class="modal-subtitle">Converse with a Celestia stylist and nose to curate a silhouette and olfactory presence attuned to you.</p>
-        </div>
-
-        <form class="booking-form" id="bookingForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="clientName">Full Name</label>
-              <input type="text" id="clientName" name="name" required placeholder="Elena Vance" autocomplete="name">
-            </div>
-            <div class="form-group">
-              <label for="clientEmail">Email Address</label>
-              <input type="email" id="clientEmail" name="email" required placeholder="elena@atelier.com" autocomplete="email">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="interestSelect">Area of Interest</label>
-            <select id="interestSelect" name="interest" required>
-              <option value="" disabled selected>Select an experience</option>
-              <option value="wardrobe">Bespoke Tailoring & Wardrobe Architecture</option>
-              <option value="fragrance">Haute Parfumerie & Personal Olfactory Profile</option>
-              <option value="combined">Complete Sensorial Experience (Suiting & Scent)</option>
-              <option value="curation">Seasonal Atelier Private Curation</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="clientNotes">Notes or Sensory Preferences (Optional)</label>
-            <textarea id="clientNotes" name="notes" rows="3" placeholder="Tell us about the textures, silhouettes, or scent profiles you are drawn to..."></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-submit-booking">
-            <span>Confirm Discovery Session</span>
-          </button>
-        </form>
+    <!-- Interactive Atelier Booking Drawer (Slide-Over) -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="booking-drawer" id="bookingDrawer" role="dialog" aria-modal="true" aria-label="Book a Discovery Consultation">
+      <div class="drawer-header">
+        <h3>Atelier Consultation</h3>
+        <button class="close-drawer-btn" id="closeDrawerBtn" aria-label="Close Booking Drawer">✕</button>
       </div>
-    </div>
+
+      <div class="drawer-body">
+        <!-- Step 1: Booking Form -->
+        <form id="bookingForm">
+          <div id="bookingStep1">
+            <div class="form-group">
+              <label class="form-label">Select Experience</label>
+              <div class="chips-row">
+                <button type="button" class="service-chip active" data-service="Full Signature Curation">Full Signature Curation</button>
+                <button type="button" class="service-chip" data-service="Wardrobe Silhouette Fitting">Wardrobe Fitting</button>
+                <button type="button" class="service-chip" data-service="Bespoke Olfactory Session">Olfactory Session</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Consultation Format</label>
+              <div class="chips-row">
+                <button type="button" class="service-chip active" data-format="Private Atelier">Private Atelier</button>
+                <button type="button" class="service-chip" data-format="Virtual Salon">Virtual Salon</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Preferred Date & Time</label>
+              <input type="date" class="form-input" style="margin-bottom: 0.8rem;" required>
+              <div class="chips-row">
+                <button type="button" class="time-chip active" data-time="10:00 AM">10:00 AM</button>
+                <button type="button" class="time-chip" data-time="02:00 PM">02:00 PM</button>
+                <button type="button" class="time-chip" data-time="05:30 PM">05:30 PM</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Client Details</label>
+              <input type="text" class="form-input" placeholder="Your Name" style="margin-bottom: 0.8rem;" required>
+              <input type="email" class="form-input" placeholder="name@example.com" required>
+            </div>
+
+            <button type="submit" class="btn-primary-blue" style="width: 100%; margin-top: 1rem;">
+              <span>Confirm Consultation</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Step 2: Success Confirmation State -->
+        <div id="bookingSuccess" class="booking-success-view">
+          <div class="success-check-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h3 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 0.8rem;">Appointment Reserved</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.8rem;">
+            Your private discovery call has been placed with the Celestia atelier salon. An invitation and preparation notes have been dispatched.
+          </p>
+
+          <div style="background: var(--bg-primary); padding: 1.2rem; border-radius: 2px; margin-bottom: 2rem; text-align: left;">
+            <div style="font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 0.4rem;">Reference Code</div>
+            <div id="bookingRefCode" style="font-family: monospace; font-size: 1.2rem; font-weight: 600; color: var(--bg-royal); margin-bottom: 0.8rem;">CLS-849201</div>
+            <div id="bookingSummaryDetails" style="font-size: 0.85rem; color: var(--text-primary);">Full Signature Curation • 10:00 AM</div>
+          </div>
+
+          <button type="button" id="resetBookingBtn" class="btn-nav-call" style="width: 100%;">
+            <span>Done</span>
+          </button>
+        </div>
+      </div>
+    </aside>
 
     <!-- Scripts -->
-    <script type="module" src="js/main.js?v=20261121d"></script>
-    <script type="module" src="js/celestia-storefront.bundle.js?v=20261121d"></script>
+    <script type="module" src="js/main.js?v=20261121e"></script>
+    <script type="module" src="js/celestia-storefront.bundle.js?v=20261121e"></script>
   </body>
 </html>

@@ -1220,6 +1220,7 @@ body:hover .custom-cursor { opacity: 1; }
   transition: opacity 0.5s var(--ease-out-expo);
 }
 
+.drawer-backdrop.open,
 .drawer-backdrop.active {
   opacity: 1;
   pointer-events: auto;
@@ -1242,8 +1243,14 @@ body:hover .custom-cursor { opacity: 1; }
   box-shadow: -10px 0 50px rgba(0, 0, 0, 0.15);
 }
 
+.booking-drawer.open,
 .booking-drawer.active {
   transform: translateX(0);
+}
+
+.modal-overlay,
+#bookingModal {
+  display: none !important;
 }
 
 .drawer-header {
