@@ -4,7 +4,7 @@
   "type": "module",
   "description": "CELESTIA — Haute Couture & Haute Parfumerie in Motion with TypeScript Architecture",
   "scripts": {
-    "build:store": "esbuild src/storefront-entry.tsx --bundle --minify --format=esm --outfile=js/storefront.bundle.js --loader:.woff2=dataurl --loader:.woff=dataurl --loader:.ttf=dataurl --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build:store": "esbuild src/storefront-entry.tsx --bundle --minify --format=esm --outfile=js/celestia-storefront.bundle.js --loader:.woff2=dataurl --loader:.woff=dataurl --loader:.ttf=dataurl --define:process.env.NODE_ENV=\\\"production\\\"",
     "build": "npm run build:store && node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "start": "python3 -m http.server 3000"

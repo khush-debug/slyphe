@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { CelestiaStorefront } from "../components/ui/knockout-landing-page";
+import { CelestiaStorefront } from "../components/ui/celestia-landing-page";
 
 const rootEl = document.getElementById("storefront-root");
 if (rootEl) {

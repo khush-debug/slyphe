@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CelestiaStorefront } from "@/components/ui/knockout-landing-page";
+import { CelestiaStorefront } from "@/components/ui/celestia-landing-page";
 
 /**
  * Demo integration for CelestiaStorefront component.
