@@ -6,19 +6,14 @@
 export class NavigationController {
     header = null;
     soundEngine = null;
-    soundToggleBtn = null;
-    soundStatusText = null;
     themeToggleBtn = null;
     isDark = false;
     constructor(soundEngine) {
         this.soundEngine = soundEngine || null;
         this.header = document.querySelector('.header');
-        this.soundToggleBtn = document.getElementById('soundToggleBtn');
-        this.soundStatusText = document.getElementById('soundStatusText');
         this.themeToggleBtn = document.getElementById('themeModeToggleBtn');
         this.initHeaderScroll();
         this.initActiveRoute();
-        this.initSoundToggle();
         this.initNocturneMode();
         this.initHeroParallax();
         this.initRevealObserver();
@@ -53,36 +48,6 @@ export class NavigationController {
             }
             else {
                 link.classList.remove('active');
-            }
-        });
-    }
-    initSoundToggle() {
-        if (!this.soundToggleBtn || !this.soundEngine)
-            return;
-        const isActive = this.soundEngine.isSoundActive();
-        if (isActive) {
-            this.soundToggleBtn.classList.add('active');
-            if (this.soundStatusText)
-                this.soundStatusText.textContent = 'SOUND: ON';
-        }
-        else {
-            this.soundToggleBtn.classList.remove('active');
-            if (this.soundStatusText)
-                this.soundStatusText.textContent = 'SOUND: OFF';
-        }
-        this.soundToggleBtn.addEventListener('click', () => {
-            if (!this.soundEngine)
-                return;
-            const nowActive = this.soundEngine.toggle();
-            if (nowActive) {
-                this.soundToggleBtn?.classList.add('active');
-                if (this.soundStatusText)
-                    this.soundStatusText.textContent = 'SOUND: ON';
-            }
-            else {
-                this.soundToggleBtn?.classList.remove('active');
-                if (this.soundStatusText)
-                    this.soundStatusText.textContent = 'SOUND: OFF';
             }
         });
     }

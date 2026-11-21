@@ -9,21 +9,16 @@ import { SoundEngine } from './sound.js';
 export class NavigationController {
   private header: HTMLElement | null = null;
   private soundEngine: SoundEngine | null = null;
-  private soundToggleBtn: HTMLElement | null = null;
-  private soundStatusText: HTMLElement | null = null;
   private themeToggleBtn: HTMLElement | null = null;
   private isDark: boolean = false;
 
   constructor(soundEngine?: SoundEngine) {
     this.soundEngine = soundEngine || null;
     this.header = document.querySelector('.header');
-    this.soundToggleBtn = document.getElementById('soundToggleBtn');
-    this.soundStatusText = document.getElementById('soundStatusText');
     this.themeToggleBtn = document.getElementById('themeModeToggleBtn');
 
     this.initHeaderScroll();
     this.initActiveRoute();
-    this.initSoundToggle();
     this.initNocturneMode();
     this.initHeroParallax();
     this.initRevealObserver();
@@ -62,32 +57,6 @@ export class NavigationController {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
-      }
-    });
-  }
-
-  private initSoundToggle(): void {
-    if (!this.soundToggleBtn || !this.soundEngine) return;
-
-    const isActive = this.soundEngine.isSoundActive();
-    if (isActive) {
-      this.soundToggleBtn.classList.add('active');
-      if (this.soundStatusText) this.soundStatusText.textContent = 'SOUND: ON';
-    } else {
-      this.soundToggleBtn.classList.remove('active');
-      if (this.soundStatusText) this.soundStatusText.textContent = 'SOUND: OFF';
-    }
-
-    this.soundToggleBtn.addEventListener('click', () => {
-      if (!this.soundEngine) return;
-      const nowActive = this.soundEngine.toggle();
-
-      if (nowActive) {
-        this.soundToggleBtn?.classList.add('active');
-        if (this.soundStatusText) this.soundStatusText.textContent = 'SOUND: ON';
-      } else {
-        this.soundToggleBtn?.classList.remove('active');
-        if (this.soundStatusText) this.soundStatusText.textContent = 'SOUND: OFF';
       }
     });
   }
