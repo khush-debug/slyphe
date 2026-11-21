@@ -1,0 +1,17 @@
+{
+  "name": "slyphe",
+  "version": "1.0.0",
+  "description": "CELESTIA — Haute Couture & Haute Parfumerie in Motion",
+  "scripts": {
+    "start": "python3 -m http.server 3000",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "celestia",
+    "slyphe",
+    "fashion",
+    "fragrance",
+    "motion"
+  ],
+  "license": "UNLICENSED"
+}
