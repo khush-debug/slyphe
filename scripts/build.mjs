@@ -1,12 +1,12 @@
 /**
  * CELESTIA — TypeScript Build & Asset Assembler
- * Compiles TypeScript source files into clean ES modules using Node's native stripTypeScriptTypes.
+ * Compiles TypeScript source files into clean ES modules using the TypeScript compiler API.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { stripTypeScriptTypes } from 'node:module';
+import ts from 'typescript';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,16 +24,6 @@ fs.mkdirSync(jsOutDir, { recursive: true });
 fs.mkdirSync(distJsDir, { recursive: true });
 
 // 1. Compile TypeScript files in src/
-let stripFn = null;
-try {
-  const mod = await import('node:module');
-  if (typeof mod.stripTypeScriptTypes === 'function') {
-    stripFn = mod.stripTypeScriptTypes;
-  }
-} catch {
-  // Not supported or experimental
-}
-
 if (fs.existsSync(srcDir)) {
   const tsFiles = fs.readdirSync(srcDir).filter(f => f.endsWith('.ts'));
 
@@ -42,24 +32,24 @@ if (fs.existsSync(srcDir)) {
     const tsCode = fs.readFileSync(filePath, 'utf8');
     const outFile = file.replace(/\.ts$/, '.js');
 
-    if (stripFn) {
-      try {
-        let jsCode = stripFn(tsCode);
-        jsCode = jsCode.replace(/from\s+['"]\.\/([^'"]+)\.ts['"]/g, "from './$1.js'");
-        fs.writeFileSync(path.join(jsOutDir, outFile), jsCode, 'utf8');
-        fs.writeFileSync(path.join(distJsDir, outFile), jsCode, 'utf8');
-        console.log(`  ✓ Compiled src/${file} -> js/${outFile}`);
-        continue;
-      } catch (err) {
-        console.warn(`  ! Could not strip types for ${file}:`, err.message);
-      }
-    }
+    try {
+      const result = ts.transpileModule(tsCode, {
+        compilerOptions: {
+          target: ts.ScriptTarget.ES2022,
+          module: ts.ModuleKind.ESNext,
+          removeComments: false,
+        },
+      });
 
-    // Fallback: If pre-compiled file exists in js/, copy it
-    const existingJs = path.join(jsOutDir, outFile);
-    if (fs.existsSync(existingJs)) {
-      fs.copyFileSync(existingJs, path.join(distJsDir, outFile));
-      console.log(`  ✓ Synced pre-built js/${outFile} -> dist/js/${outFile}`);
+      let jsCode = result.outputText;
+      // Ensure import paths reference .js for browser ESM
+      jsCode = jsCode.replace(/from\s+['"]\.\/([^'"]+)\.ts['"]/g, "from './$1.js'");
+
+      fs.writeFileSync(path.join(jsOutDir, outFile), jsCode, 'utf8');
+      fs.writeFileSync(path.join(distJsDir, outFile), jsCode, 'utf8');
+      console.log(`  ✓ Compiled src/${file} -> js/${outFile}`);
+    } catch (err) {
+      console.warn(`  ! Could not transpile ${file}:`, err.message);
     }
   }
 }

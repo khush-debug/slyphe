@@ -9,6 +9,11 @@
     "start": "python3 -m http.server 3000"
   },
   "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.7.0",
+    "postcss": "^8.5.33",
+    "tailwindcss": "^4.3.5",
     "typescript": "^5.7.0"
   },
   "keywords": [
@@ -20,5 +25,15 @@
     "fragrance",
     "motion"
   ],
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@gsap/react": "^2.1.2",
+    "clsx": "^2.1.1",
+    "gsap": "^3.15.1",
+    "lucide-react": "^1.77.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.1"
+  }
 }

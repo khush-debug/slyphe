@@ -8,8 +8,8 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useGSAP } from "@gsap/react";
 import "@fontsource-variable/manrope";
 
-const storefrontStyles = ":root[data-knockout-theme] {
-  font-family: \"Manrope Variable\", system-ui, sans-serif;
+const storefrontStyles = `:root[data-knockout-theme] {
+  font-family: "Manrope Variable", system-ui, sans-serif;
   font-synthesis: none;
   color-scheme: light;
   background: var(--page);
@@ -17,7 +17,7 @@ const storefrontStyles = ":root[data-knockout-theme] {
   -webkit-font-smoothing: antialiased;
 }
 
-:root[data-knockout-theme=\"dark\"] {
+:root[data-knockout-theme="dark"] {
   color-scheme: dark;
 }
 
@@ -101,7 +101,7 @@ a { color: inherit; text-decoration: none; }
   --product: #eeeae7;
 }
 
-:root[data-knockout-theme], [data-cutline-theme=\"light\"] {
+:root[data-knockout-theme], [data-cutline-theme="light"] {
   --page: var(--cutline-cream);
   --ink: #151211;
   --muted: #675955;
@@ -112,7 +112,7 @@ a { color: inherit; text-decoration: none; }
   --accent-ink: #fff1eb;
 }
 
-:root[data-knockout-theme=\"dark\"], [data-cutline-theme=\"dark\"] {
+:root[data-knockout-theme="dark"], [data-cutline-theme="dark"] {
   --page: var(--cutline-obsidian);
   --ink: #eae0da;
   --muted: #a59892;
@@ -123,7 +123,7 @@ a { color: inherit; text-decoration: none; }
   --accent-ink: #1a0807;
 }
 
-:root[data-knockout-theme=\"signal\"], [data-cutline-theme=\"signal\"] {
+:root[data-knockout-theme="signal"], [data-cutline-theme="signal"] {
   --page: var(--cutline-signal);
   --ink: #fff0eb;
   --muted: #ffefeb;
@@ -195,8 +195,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .cutline-swatches span { width: 11px; height: 11px; border: 1px solid var(--line); border-radius: 50%; }
-.cutline-swatches [aria-pressed=\"true\"] span { outline: 1px solid var(--ink); outline-offset: 3px; }
-.cutline-swatches [aria-disabled=\"true\"] { pointer-events: none; }
+.cutline-swatches [aria-pressed="true"] span { outline: 1px solid var(--ink); outline-offset: 3px; }
+.cutline-swatches [aria-disabled="true"] { pointer-events: none; }
 
 .cutline-hero { padding-top: clamp(2px, .95vw, 18px); }
 .cutline-title-frame { container-type: inline-size; overflow: clip; }
@@ -262,9 +262,9 @@ a { color: inherit; text-decoration: none; }
   transform: scale(1);
   transition: opacity .15s linear, transform .32s cubic-bezier(.16, 1, .3, 1);
 }
-.cutline-product:focus-visible .cutline-look[data-ready=\"true\"] { opacity: 1; }
+.cutline-product:focus-visible .cutline-look[data-ready="true"] { opacity: 1; }
 @media (hover: hover) and (pointer: fine) {
-  .cutline-product:hover .cutline-look[data-ready=\"true\"] { opacity: 1; transform: scale(1.03); }
+  .cutline-product:hover .cutline-look[data-ready="true"] { opacity: 1; transform: scale(1.03); }
 }
 
 .cutline-product-info {
@@ -353,7 +353,7 @@ a { color: inherit; text-decoration: none; }
   --intro-ui: #382726;
   --focus: #942422;
 }
-.cutline-intro[data-replay=\"true\"] {
+.cutline-intro[data-replay="true"] {
   background: var(--page);
   color: var(--ink);
   --intro-ui: var(--ink);
@@ -479,7 +479,7 @@ a { color: inherit; text-decoration: none; }
 .cutline-product-detail p, .cutline-bag p { color: var(--muted); font-size: .89rem; line-height: 1.5; }
 .cutline-sizes { display: flex; gap: 6px; margin: 21px 0 12px; }
 .cutline .cutline-sizes button { min-width: 44px; min-height: 44px; border: 1px solid var(--line); font-size: .83rem; font-weight: 800; }
-.cutline .cutline-sizes button[aria-pressed=\"true\"] { background: var(--ink); border-color: var(--ink); color: var(--page); }
+.cutline .cutline-sizes button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--page); }
 .cutline button.cutline-add {
   display: flex;
   align-items: center;
@@ -536,7 +536,7 @@ a { color: inherit; text-decoration: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .cutline .cutline-look, .cutline .cutline-cursor span { transition: none; }
-  .cutline-product:hover .cutline-look[data-ready=\"true\"] { transform: none; }
+  .cutline-product:hover .cutline-look[data-ready="true"] { transform: none; }
   .cutline-cursor { display: none; }
 }
 
@@ -547,7 +547,7 @@ a { color: inherit; text-decoration: none; }
   min-block-size: 100dvh;
   background: var(--page);
   color: var(--ink);
-}";
+}`;
 
 export type CutlineProduct = {
   id: string;

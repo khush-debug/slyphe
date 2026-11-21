@@ -8,9 +8,13 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "outDir": "./dist/js",
-    "rootDir": "./src",
     "noEmit": false
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "components/**/*", "lib/**/*"]
 }

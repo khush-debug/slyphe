@@ -2,27 +2,21 @@
  * CELESTIA — Interactive Look & Feel Studio
  * Visual interface demonstrating how CSS variables dynamically control button colors, sizes, and padding.
  */
-
 import { ThemeController } from './theme.js';
-import { ButtonPalette, ButtonRadius, ButtonSize } from './types.js';
-
 export class ThemeInspector {
-          controller                 ;
-          container                     = null;
-          isOpen          = false;
-
-  constructor(controller                 ) {
-    this.controller = controller;
-    this.createDOM();
-    this.bindEvents();
-  }
-
-          createDOM()       {
-    const root = document.createElement('div');
-    root.id = 'themeInspectorRoot';
-    root.className = 'theme-inspector-root';
-
-    root.innerHTML = `
+    controller;
+    container = null;
+    isOpen = false;
+    constructor(controller) {
+        this.controller = controller;
+        this.createDOM();
+        this.bindEvents();
+    }
+    createDOM() {
+        const root = document.createElement('div');
+        root.id = 'themeInspectorRoot';
+        root.className = 'theme-inspector-root';
+        root.innerHTML = `
       <!-- Floating Trigger Button -->
       <button class="theme-inspector-trigger" id="themeTriggerBtn" aria-label="Toggle Look & CSS Controls">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -111,86 +105,78 @@ export class ThemeInspector {
         </div>
       </div>
     `;
-
-    document.body.appendChild(root);
-    this.container = root;
-  }
-
-          bindEvents()       {
-    if (!this.container) return;
-
-    const trigger = this.container.querySelector('#themeTriggerBtn');
-    const panel = this.container.querySelector('#themeInspectorPanel');
-    const close = this.container.querySelector('#themeCloseBtn');
-    const liveCss = this.container.querySelector('#liveCssOutput');
-    const copyBtn = this.container.querySelector('#copyCssBtn');
-
-    trigger?.addEventListener('click', () => {
-      this.isOpen = !this.isOpen;
-      panel?.classList.toggle('open', this.isOpen);
-      panel?.setAttribute('aria-hidden', String(!this.isOpen));
-      trigger.classList.toggle('active', this.isOpen);
-    });
-
-    close?.addEventListener('click', () => {
-      this.isOpen = false;
-      panel?.classList.remove('open');
-      panel?.setAttribute('aria-hidden', 'true');
-      trigger?.classList.remove('active');
-    });
-
-    // Palette change
-    const swatches = this.container.querySelectorAll                   ('[data-palette]');
-    swatches.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const pal = btn.getAttribute('data-palette')                 ;
-        if (pal) {
-          this.controller.setButtonPalette(pal);
-          swatches.forEach(b => b.classList.toggle('active', b === btn));
-        }
-      });
-    });
-
-    // Size change
-    const sizeBtns = this.container.querySelectorAll                   ('[data-size]');
-    sizeBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const size = btn.getAttribute('data-size')              ;
-        if (size) {
-          this.controller.setButtonSize(size);
-          sizeBtns.forEach(b => b.classList.toggle('active', b === btn));
-        }
-      });
-    });
-
-    // Radius change
-    const radiusBtns = this.container.querySelectorAll                   ('[data-radius]');
-    radiusBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const radius = btn.getAttribute('data-radius')                ;
-        if (radius) {
-          this.controller.setButtonRadius(radius);
-          radiusBtns.forEach(b => b.classList.toggle('active', b === btn));
-        }
-      });
-    });
-
-    // Copy CSS button
-    copyBtn?.addEventListener('click', () => {
-      const code = this.controller.generateCSSSnippet();
-      navigator.clipboard?.writeText(code).then(() => {
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => {
-          if (copyBtn) copyBtn.textContent = 'Copy CSS';
-        }, 1800);
-      });
-    });
-
-    // Listen for custom event updates from the controller
-    window.addEventListener('celestia:theme-changed', ((e             ) => {
-      if (liveCss) {
-        liveCss.textContent = e.detail.css;
-      }
-    })                 );
-  }
+        document.body.appendChild(root);
+        this.container = root;
+    }
+    bindEvents() {
+        if (!this.container)
+            return;
+        const trigger = this.container.querySelector('#themeTriggerBtn');
+        const panel = this.container.querySelector('#themeInspectorPanel');
+        const close = this.container.querySelector('#themeCloseBtn');
+        const liveCss = this.container.querySelector('#liveCssOutput');
+        const copyBtn = this.container.querySelector('#copyCssBtn');
+        trigger?.addEventListener('click', () => {
+            this.isOpen = !this.isOpen;
+            panel?.classList.toggle('open', this.isOpen);
+            panel?.setAttribute('aria-hidden', String(!this.isOpen));
+            trigger.classList.toggle('active', this.isOpen);
+        });
+        close?.addEventListener('click', () => {
+            this.isOpen = false;
+            panel?.classList.remove('open');
+            panel?.setAttribute('aria-hidden', 'true');
+            trigger?.classList.remove('active');
+        });
+        // Palette change
+        const swatches = this.container.querySelectorAll('[data-palette]');
+        swatches.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pal = btn.getAttribute('data-palette');
+                if (pal) {
+                    this.controller.setButtonPalette(pal);
+                    swatches.forEach(b => b.classList.toggle('active', b === btn));
+                }
+            });
+        });
+        // Size change
+        const sizeBtns = this.container.querySelectorAll('[data-size]');
+        sizeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const size = btn.getAttribute('data-size');
+                if (size) {
+                    this.controller.setButtonSize(size);
+                    sizeBtns.forEach(b => b.classList.toggle('active', b === btn));
+                }
+            });
+        });
+        // Radius change
+        const radiusBtns = this.container.querySelectorAll('[data-radius]');
+        radiusBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const radius = btn.getAttribute('data-radius');
+                if (radius) {
+                    this.controller.setButtonRadius(radius);
+                    radiusBtns.forEach(b => b.classList.toggle('active', b === btn));
+                }
+            });
+        });
+        // Copy CSS button
+        copyBtn?.addEventListener('click', () => {
+            const code = this.controller.generateCSSSnippet();
+            navigator.clipboard?.writeText(code).then(() => {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    if (copyBtn)
+                        copyBtn.textContent = 'Copy CSS';
+                }, 1800);
+            });
+        });
+        // Listen for custom event updates from the controller
+        window.addEventListener('celestia:theme-changed', ((e) => {
+            if (liveCss) {
+                liveCss.textContent = e.detail.css;
+            }
+        }));
+    }
 }
